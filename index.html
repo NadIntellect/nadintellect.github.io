@@ -1,985 +1,394 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <title>NadIntellect Lab — Research Laboratory for AI Safety &amp; Controllable Superintelligence</title>
-<meta name="description" content="NadIntellect Lab is an independent research laboratory for AI safety, experimentally investigating architectures for controllable superintelligence.">
-<meta name="application-name" content="NadInLab">
-<meta name="theme-color" content="#03050B">
-<meta name="color-scheme" content="dark">
+<meta content="NadIntellect Lab is an independent research laboratory for AI safety, experimentally investigating architectures for controllable superintelligence." name="description"/>
+<meta content="NadInLab" name="application-name"/>
+<meta content="#03050B" name="theme-color"/>
+<meta content="dark" name="color-scheme"/>
 <!-- CANONICAL / OG:URL: add only once the real domain is confirmed.
      <link rel="canonical" href="https://YOUR-DOMAIN/"> -->
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="NadIntellect Lab">
-<meta property="og:title" content="NadIntellect Lab — AI Safety &amp; Controllable Superintelligence">
-<meta property="og:description" content="Independent research laboratory for AI safety, experimentally investigating architectures for controllable superintelligence.">
-
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NadIntellect Lab — AI Safety &amp; Controllable Superintelligence">
-<meta name="twitter:description" content="Independent research laboratory for AI safety, experimentally investigating architectures for controllable superintelligence.">
+<meta content="website" property="og:type"/>
+<meta content="NadIntellect Lab" property="og:site_name"/>
+<meta content="NadIntellect Lab — AI Safety &amp; Controllable Superintelligence" property="og:title"/>
+<meta content="Independent research laboratory for AI safety, experimentally investigating architectures for controllable superintelligence." property="og:description"/>
+<meta content="summary" name="twitter:card"/>
+<meta content="NadIntellect Lab — AI Safety &amp; Controllable Superintelligence" name="twitter:title"/>
+<meta content="Independent research laboratory for AI safety, experimentally investigating architectures for controllable superintelligence." name="twitter:description"/>
 <!-- FAVICON PLACEHOLDER: replace with the approved NadInLab logo asset when available -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2303050B'/%3E%3Ccircle cx='32' cy='32' r='14' fill='none' stroke='%2386E1FF' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%23E9BD72'/%3E%3C/svg%3E">
-<link rel="preload" as="image" type="image/avif" href="assets/NadIntellect_Lab_mobile_clean.avif" fetchpriority="high">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Playfair+Display:wght@600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2303050B'/%3E%3Ccircle cx='32' cy='32' r='14' fill='none' stroke='%2386E1FF' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%23E9BD72'/%3E%3C/svg%3E" rel="icon"/>
+<link as="image" fetchpriority="high" href="bg-01-hero.webp" media="(max-width: 1023px)" rel="preload" type="image/webp"/>
+<link rel="preload" href="instrument-serif-400.woff" as="font" type="font/woff" crossorigin>
 <style>
-@property --n1 { syntax: '<color>'; inherits: true; initial-value: #1b2a6b; }
-@property --n2 { syntax: '<color>'; inherits: true; initial-value: #0d3a4a; }
-
-:root{
-  --void:#03050B; --navy:#081226; --ink:#0D1A31;
-  --line:rgba(160,205,240,.16); --line-strong:rgba(160,205,240,.32);
-  --text:#E7EEF6; --muted:#9AAAC0; --dim:#6F8098;
-  --cyan:#86E1FF; --ice:#CFEFFF; --gold:#E9BD72;
-  --serif:"Instrument Serif", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
-  --sans:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --pad:clamp(1.25rem, 5vw, 3rem);
-  --max:72rem;
-  --header-h:64px;
-}
-*,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + env(safe-area-inset-top,0px));-webkit-text-size-adjust:100%}
-html,body{overflow-x:hidden;overflow-x:clip;max-width:100%}
-body{margin:0;background:var(--void);color:var(--text);font-family:var(--sans);font-weight:300;font-size:1.0625rem;line-height:1.65;-webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom,0px)}
-img,svg,canvas{max-width:100%;display:block}
-a{color:inherit}
-p{margin:0 0 1em}
-h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.08;margin:0;letter-spacing:.005em;text-wrap:balance}
-:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px}
-.skip{position:absolute;left:1rem;top:-4rem;z-index:100;background:var(--cyan);color:var(--void);padding:.6rem 1rem;border-radius:6px;font-weight:500;text-decoration:none}
-.skip:focus{top:calc(1rem + env(safe-area-inset-top,0px))}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-
-/* ---------- Continuous cosmic backdrop ---------- */
-.sky{position:fixed;inset:0;z-index:-2;pointer-events:none;
-  background:
-    radial-gradient(60rem 40rem at 85% 10%, color-mix(in srgb,var(--n1) 55%, transparent), transparent 70%),
-    radial-gradient(50rem 40rem at 10% 90%, color-mix(in srgb,var(--n2) 55%, transparent), transparent 70%),
-    linear-gradient(180deg,#03050B 0%, #050A18 50%, #03050B 100%);
-  transition:--n1 1.6s ease, --n2 1.6s ease}
-#stars{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
-
-/* ---------- Header ---------- */
-.header{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
-.header.scrolled{background:rgba(3,5,11,.72);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);border-bottom-color:var(--line)}
-.header .inner{max-width:var(--max);margin:0 auto;height:var(--header-h);display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);gap:1rem}
-.brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;font-weight:500;letter-spacing:.14em;font-size:.82rem;white-space:nowrap}
-.brand svg{width:22px;height:22px;flex:none}
-.nav ul{list-style:none;margin:0;padding:0;display:flex;gap:1.6rem}
-.nav a{text-decoration:none;font-size:.9rem;color:var(--muted);transition:color .2s}
-.nav a:hover{color:var(--text)}
-.menu-btn{display:none;background:none;border:1px solid var(--line-strong);color:var(--text);width:44px;height:44px;border-radius:10px;cursor:pointer;align-items:center;justify-content:center}
-.menu-btn span,.menu-btn span::before,.menu-btn span::after{display:block;width:18px;height:1.5px;background:currentColor;position:relative;transition:transform .25s,opacity .25s}
-.menu-btn span::before,.menu-btn span::after{content:"";position:absolute;left:0}
-.menu-btn span::before{top:-6px}.menu-btn span::after{top:6px}
-.menu-btn[aria-expanded="true"] span{background:transparent}
-.menu-btn[aria-expanded="true"] span::before{transform:translateY(6px) rotate(45deg)}
-.menu-btn[aria-expanded="true"] span::after{transform:translateY(-6px) rotate(-45deg)}
-
-@media (max-width:959px){
-  .menu-btn{display:inline-flex}
-  .nav{position:fixed;left:0;right:0;top:calc(var(--header-h) + env(safe-area-inset-top,0px));height:calc(100svh - var(--header-h) - env(safe-area-inset-top,0px));background:rgba(3,5,11,.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:1.5rem var(--pad) calc(2rem + env(safe-area-inset-bottom,0px));overflow-y:auto;visibility:hidden;opacity:0;transform:translateY(-8px);transition:opacity .25s,transform .25s,visibility 0s .25s}
-  .nav.open{visibility:visible;opacity:1;transform:none;transition:opacity .25s,transform .25s}
-  .nav ul{flex-direction:column;gap:0}
-  .nav li{border-bottom:1px solid var(--line)}
-  .nav a{display:block;padding:1.05rem 0;font-family:var(--serif);font-size:1.9rem;color:var(--text)}
-}
-
-/* ---------- Layout ---------- */
-main{display:block}
-section{position:relative;padding:clamp(5rem,12vw,9rem) var(--pad)}
-.wrap{max-width:var(--max);margin:0 auto;min-width:0}
-.narrow{max-width:44rem}
-.kicker{display:block;font-size:.9rem;color:var(--cyan);margin-bottom:1rem;font-weight:400}
-h2{font-size:clamp(2.3rem,7.5vw,4.4rem)}
-.lead{font-size:clamp(1.1rem,2.6vw,1.3rem);color:var(--muted);max-width:40rem;margin-top:1.25rem}
-.body{color:#C9D5E3;max-width:40rem}
-
-/* ---------- Buttons ---------- */
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.8rem 1.4rem;border-radius:999px;text-decoration:none;font-weight:500;font-size:.98rem;line-height:1.2;text-align:center;transition:background .2s,border-color .2s,color .2s,box-shadow .2s}
-.btn-primary{background:var(--ice);color:#04101E;box-shadow:0 0 0 1px rgba(207,239,255,.6),0 10px 40px -10px rgba(134,225,255,.55)}
-.btn-primary:hover{background:#fff}
-.btn-ghost{border:1px solid var(--line-strong);color:var(--text);background:rgba(8,18,38,.35);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
-.btn-ghost:hover{border-color:var(--cyan)}
-.link-quiet{color:var(--gold);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
-.link-quiet:hover{color:#F5D49A}
-
-/* ---------- Hero ---------- */
-/* ---------- Continuum ---------- */
-.continuum-head{max-width:46rem}
-.stream{list-style:none;margin:3.5rem 0 0;padding:0;position:relative;display:grid;gap:0}
-.stream::before{content:"";position:absolute;left:27px;top:28px;bottom:28px;width:1px;background:linear-gradient(180deg,rgba(160,140,255,.6),rgba(90,220,190,.6) 35%,rgba(233,189,114,.7) 70%,rgba(134,225,255,.9))}
-.stream li{display:grid;grid-template-columns:56px 1fr;gap:1.1rem;align-items:center;padding:.85rem 0;min-width:0}
-.glyph{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,rgba(8,18,38,1) 55%,rgba(8,18,38,0) 72%);position:relative}
-.glyph svg{width:40px;height:40px;opacity:.45;transition:opacity 1s,filter 1s}
-.stream li.lit .glyph svg{opacity:1;filter:drop-shadow(0 0 6px var(--c))}
-.stream-line{display:none;position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:-1}
-.stream-wrap{position:relative;isolation:isolate}
-.stream .name{font-family:var(--serif);font-size:1.6rem;line-height:1.1}
-.stream .note{display:block;font-family:var(--sans);font-size:.88rem;color:var(--dim);margin-top:.2rem}
-.stream li:last-child .name{color:var(--ice)}
-.continuum-caveat{margin-top:2.5rem;font-size:.9rem;color:var(--dim);max-width:36rem}
-@media (min-width:1080px){
-  .stream{grid-template-columns:repeat(9,minmax(0,1fr));align-items:start;margin-top:5rem}
-  .stream::before{left:5%;right:5%;top:auto;bottom:auto;width:auto;height:1px;top:28px;background:linear-gradient(90deg,rgba(160,140,255,.6),rgba(90,220,190,.6) 35%,rgba(233,189,114,.7) 70%,rgba(134,225,255,.9))}
-  .stream li{grid-template-columns:1fr;justify-items:center;text-align:center;padding:0 .25rem}
-  .stream li:nth-child(n){margin-top:calc(var(--i) * -0.9rem + 7.2rem)}
-  .stream::before{display:none}
-  .stream-line{display:block!important}
-  .stream .name{font-size:1.35rem}
-}
-
-/* ---------- Why ---------- */
-.why .statement{margin-top:3.5rem;font-family:var(--serif);font-size:clamp(2rem,6.4vw,4rem);line-height:1.1;max-width:22ch}
-.why .statement span{display:block}
-.why .statement span+span{color:var(--gold);font-style:italic}
-
-/* ---------- Experiment ---------- */
-.exp-grid{display:grid;gap:2.5rem;margin-top:2.5rem}
-@media (min-width:900px){.exp-grid{grid-template-columns:1.1fr 1fr;gap:4rem;align-items:start}}
-.exp-id{display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap}
-.exp-id .code{font-family:var(--serif);font-size:clamp(4rem,16vw,7.5rem);line-height:.9;color:var(--ice)}
-.badge{display:inline-flex;align-items:center;gap:.5rem;border:1px solid rgba(233,189,114,.5);color:var(--gold);border-radius:999px;padding:.3rem .8rem;font-size:.8rem;font-weight:500;letter-spacing:.1em}
-.badge::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
-.exp-desc{margin-top:1.5rem;color:#C9D5E3;max-width:36rem}
-.status{border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,rgba(13,26,49,.55),rgba(8,18,38,.35));backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);overflow:hidden}
-.status h3{font-family:var(--sans);font-size:.95rem;font-weight:500;color:var(--muted);padding:1.1rem 1.25rem;border-bottom:1px solid var(--line)}
-.status dl{margin:0}
-.row{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem 1.25rem;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.row:last-child{border-bottom:0}
-.row dt{color:#D3DDEA;min-width:0}
-.row dt small{display:block;color:var(--dim);font-size:.8rem;margin-top:.1rem}
-.row dd{margin:0;font-weight:500;letter-spacing:.06em;font-size:.9rem;display:flex;align-items:center;gap:.5rem;white-space:nowrap;color:var(--cyan)}
-.row dd::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
-.row.pending dd{color:var(--gold)}
-.row.pending dd::before{background:transparent;border:1.5px solid currentColor}
-.grouplabel{padding:.7rem 1.25rem;font-size:.8rem;color:var(--dim);background:rgba(3,5,11,.35);border-bottom:1px solid var(--line)}
-.caution{margin-top:1.5rem;padding:1.1rem 1.25rem;border-left:2px solid var(--gold);background:rgba(233,189,114,.06);border-radius:0 12px 12px 0}
-.caution strong{display:block;font-family:var(--serif);font-weight:400;font-size:1.45rem;color:var(--gold);line-height:1.2}
-.caution p{margin:.4rem 0 0;font-size:.92rem;color:var(--muted)}
-
-/* ---------- Philosophy ---------- */
-.principles{list-style:none;padding:0;margin:3rem 0 0;display:grid;gap:0;border-top:1px solid var(--line)}
-.principles li{padding:1.5rem 0;border-bottom:1px solid var(--line);font-family:var(--serif);font-size:clamp(1.8rem,5.5vw,2.8rem);line-height:1.1}
-@media (min-width:900px){
-  .principles{grid-template-columns:1fr 1fr;column-gap:3rem}
-}
-.philo-text{margin-top:2.5rem}
-
-/* ---------- Program ---------- */
-.stages{list-style:none;padding:0;margin:3.5rem 0 0;position:relative;counter-reset:s}
-.stages::before{content:"";position:absolute;left:9px;top:12px;bottom:12px;width:1px;background:linear-gradient(180deg,var(--cyan),rgba(134,225,255,.15) 60%,rgba(233,189,114,.6))}
-.stages li{position:relative;padding:0 0 2.4rem 2.6rem;min-width:0}
-.stages li:last-child{padding-bottom:0}
-.stages li::before{content:"";position:absolute;left:3px;top:8px;width:13px;height:13px;border-radius:50%;border:1.5px solid var(--line-strong);background:var(--void)}
-.stages li.now::before{border-color:var(--cyan);background:var(--cyan);box-shadow:0 0 0 5px rgba(134,225,255,.15),0 0 18px var(--cyan)}
-.stages li.far::before{border-color:var(--gold)}
-.stages .num{font-size:.85rem;color:var(--dim)}
-.stages h3{font-size:clamp(1.7rem,5vw,2.4rem);margin-top:.15rem}
-.stages .tag{display:inline-block;margin-top:.5rem;font-size:.82rem;color:var(--cyan)}
-.stages li.far h3{color:var(--gold)}
-@media (min-width:1000px){
-  .stages{display:grid;grid-template-columns:repeat(5,1fr);gap:1.5rem}
-  .stages::before{left:0;right:0;top:9px;bottom:auto;width:auto;height:1px;background:linear-gradient(90deg,var(--cyan),rgba(134,225,255,.15) 60%,rgba(233,189,114,.6))}
-  .stages li{padding:2.5rem 0 0}
-  .stages li::before{left:0;top:3px}
-  .stages h3{font-size:1.75rem}
-}
-
-/* ---------- Reactor ---------- */
-.reactor{overflow:hidden;isolation:isolate;text-align:center;padding-top:clamp(6rem,14vw,11rem);padding-bottom:clamp(6rem,14vw,11rem)}
-.reactor .orb{position:absolute;left:50%;top:50%;width:min(130vw,62rem);aspect-ratio:1;transform:translate(-50%,-50%);z-index:-1;pointer-events:none}
-.reactor .orb svg{width:100%;height:100%}
-.reactor .orb circle[fill]{opacity:.8}
-.reactor .wrap{max-width:46rem}
-.reactor h2{font-size:clamp(2.6rem,9vw,5.6rem)}
-.reactor .lead{margin-left:auto;margin-right:auto;color:var(--ice)}
-.reactor .body{margin:1.5rem auto 0}
-.reactor .disclaim{margin-top:2rem;font-family:var(--serif);font-style:italic;font-size:1.35rem;color:var(--gold)}
-
-/* ---------- Lab ---------- */
-.lab-grid{display:grid;gap:3rem;margin-top:3rem}
-@media (min-width:900px){.lab-grid{grid-template-columns:1fr 1fr;gap:4rem}}
-.founder{border-top:1px solid var(--line-strong);padding-top:1.5rem}
-.founder .role{font-size:.9rem;color:var(--cyan)}
-.founder .person{font-family:var(--serif);font-size:clamp(2rem,6vw,2.8rem);line-height:1.1;margin-top:.35rem}
-.founder .place{color:var(--muted);margin-top:.35rem}
-.openings{display:grid;gap:.75rem}
-.opening{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.1rem 1.25rem;border:1px dashed var(--line-strong);border-radius:14px;flex-wrap:wrap}
-.opening span:first-child{font-family:var(--serif);font-size:1.5rem}
-.opening span:last-child{font-size:.85rem;color:var(--dim)}
-.growing{margin-top:1rem;color:var(--muted);font-size:.95rem}
-
-/* ---------- Log ---------- */
-.log{margin-top:3rem;border-top:1px solid var(--line)}
-.entry{display:grid;grid-template-columns:1fr;gap:.35rem;padding:1.5rem 0;border-bottom:1px solid var(--line)}
-@media (min-width:720px){.entry{grid-template-columns:10rem 1fr auto;gap:2rem;align-items:baseline}}
-.entry time{color:var(--muted);font-size:.95rem}
-.entry h3{font-size:1.8rem}
-.entry h3 small{display:block;font-family:var(--sans);font-size:.95rem;color:var(--muted);margin-top:.25rem}
-.entry .state{font-size:.85rem;color:var(--cyan);font-weight:500}
-.entry.empty{color:var(--dim)}
-.entry.empty p{margin:0;max-width:34rem}
-
-/* ---------- Support ---------- */
-.support .wrap{display:grid;gap:3rem}
-@media (min-width:900px){.support .wrap{grid-template-columns:1fr 1fr;gap:4rem;align-items:end}}
-.amounts{display:grid;gap:1.5rem}
-.amount{padding-top:1.25rem;border-top:1px solid var(--line-strong)}
-.amount .label{color:var(--muted);font-size:.95rem}
-.amount .value{font-family:var(--serif);font-size:clamp(2.6rem,9vw,4rem);line-height:1;margin-top:.4rem;color:var(--ice)}
-.amount .value em{font-style:italic;font-size:.5em;color:var(--muted);margin-right:.2em}
-.support .actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
-@media (max-width:420px){.support .actions .btn{flex:1 1 100%}}
-
-/* ---------- Contact ---------- */
-.contact .card{border:1px solid var(--line);border-radius:22px;padding:clamp(1.5rem,5vw,3rem);background:linear-gradient(160deg,rgba(13,26,49,.65),rgba(3,5,11,.3));display:grid;gap:2rem}
-@media (min-width:900px){.contact .card{grid-template-columns:1.2fr 1fr;align-items:end}}
-.contact .org{font-family:var(--serif);font-size:clamp(2rem,6vw,3rem);line-height:1}
-.contact .meta{color:var(--muted);margin-top:.75rem}
-.mail{display:inline-block;margin-top:1.25rem;font-size:clamp(1rem,4.2vw,1.35rem);color:var(--cyan);text-decoration:none;border-bottom:1px solid rgba(134,225,255,.4);overflow-wrap:anywhere;padding-bottom:2px}
-.mail:hover{border-bottom-color:var(--cyan)}
-.links{list-style:none;padding:0;margin:0;display:grid;gap:0;border-top:1px solid var(--line)}
-.links a{display:flex;justify-content:space-between;align-items:center;min-height:52px;text-decoration:none;border-bottom:1px solid var(--line);color:var(--text)}
-.links a span:last-child{color:var(--dim);font-size:.85rem}
-.links a:hover span:first-child{color:var(--cyan)}
-
-/* ---------- Footer ---------- */
-footer{padding:clamp(5rem,12vw,9rem) var(--pad) calc(2.5rem + env(safe-area-inset-bottom,0px));text-align:center;position:relative;overflow:hidden}
-footer .final{font-family:var(--serif);font-size:clamp(2rem,6.5vw,4.2rem);line-height:1.1;max-width:18ch;margin:0 auto}
-footer .final em{color:var(--gold)}
-footer .small{margin-top:4rem;color:var(--dim);font-size:.85rem}
-footer .dawn{position:absolute;left:50%;bottom:-40vw;width:120vw;height:60vw;transform:translateX(-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(233,189,114,.22),rgba(233,189,114,0));z-index:-1;pointer-events:none}
-
-/* ================= v2 refinements ================= */
-:root{--hair:rgba(134,225,255,.14)}
-h2{font-size:clamp(1.85rem,1.2rem + 2.6vw,3.1rem);line-height:1.1}
-.lead{font-size:clamp(1.02rem,.95rem + .4vw,1.18rem)}
-.mark{display:flex;align-items:center;gap:.7rem;font-size:.7rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:1.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mark::before{content:"";flex:none;width:24px;height:1px;background:var(--cyan);box-shadow:0 0 6px rgba(134,225,255,.8)}
-
-/* buttons */
-.btn{position:relative;overflow:hidden;gap:.65rem;border-radius:3px;letter-spacing:.02em;min-height:48px;padding:.8rem 1.35rem;transition:border-color .25s,box-shadow .25s,background .25s,transform .12s}
-.btn .arr{width:14px;height:14px;flex:none;transition:transform .25s}
-.btn:hover .arr{transform:translateX(3px)}
-.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.28) 50%,transparent 65%);transform:translateX(-130%);transition:transform .8s ease;pointer-events:none}
-.btn:hover::after,.btn:focus-visible::after{transform:translateX(130%)}
-.btn:active{transform:translateY(1px)}
-.btn-primary{background:linear-gradient(180deg,#DDF4FF,#B9E6FA);color:#04101E;box-shadow:0 0 0 1px rgba(221,244,255,.8),0 6px 26px -12px rgba(134,225,255,.7)}
-.btn-primary:hover{background:linear-gradient(180deg,#fff,#CDEFFD);box-shadow:0 0 0 1px #fff,0 8px 30px -10px rgba(134,225,255,.85)}
-.btn-ghost{border:1px solid rgba(134,225,255,.34);background:rgba(6,14,30,.45);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
-.btn-ghost:hover{border-color:rgba(134,225,255,.85);box-shadow:0 0 20px -8px rgba(134,225,255,.7),inset 0 1px 0 rgba(255,255,255,.06)}
-.btn-ghost::after{background:linear-gradient(105deg,transparent 35%,rgba(134,225,255,.18) 50%,transparent 65%)}
-
-/* corner brackets + grid fragments */
-.brk{position:relative}
-.brk::before,.brk::after{content:"";position:absolute;width:14px;height:14px;border:1px solid var(--cyan);opacity:.75;pointer-events:none}
-.brk::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
-.brk::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
-.has-grid,.reactor{isolation:isolate}
-.gridfx{position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(var(--hair) 1px,transparent 1px),linear-gradient(90deg,var(--hair) 1px,transparent 1px);background-size:56px 56px;opacity:.45;-webkit-mask-image:radial-gradient(34rem 26rem at 82% 38%,#000,transparent 70%);mask-image:radial-gradient(34rem 26rem at 82% 38%,#000,transparent 70%)}
-
-/* continuum */
-.stream .name{font-size:1.3rem}
-@media (min-width:1080px){.stream .name{font-size:1.12rem}}
-
-/* why */
-.why .statement{font-size:clamp(1.55rem,1rem + 2.4vw,2.7rem);max-width:26ch;padding-left:1.25rem;border-left:1px solid var(--cyan)}
-
-/* experiment */
-.exp-id .code{font-size:clamp(3rem,11vw,5rem);letter-spacing:.02em}
-.badge{border-radius:3px;border-color:rgba(233,189,114,.45);font-size:.72rem;letter-spacing:.16em;padding:.3rem .7rem;background:rgba(233,189,114,.05)}
-.badge::before{display:none}
-.badge i{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:ping 2.6s ease-out infinite}
-@keyframes ping{0%{box-shadow:0 0 0 0 rgba(233,189,114,.55)}80%,100%{box-shadow:0 0 0 7px rgba(233,189,114,0)}}
-.caution{border-radius:0 4px 4px 0}
-.caution strong{font-size:1.3rem}
-.status{border-radius:4px;border:1px solid rgba(134,225,255,.2);background:linear-gradient(180deg,rgba(10,22,44,.72),rgba(5,12,26,.6));overflow:visible;box-shadow:0 30px 80px -40px rgba(134,225,255,.25)}
-.status-head{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.9rem 1.25rem;border-bottom:1px solid rgba(134,225,255,.28)}
-.status-head h3{font-family:var(--sans);font-size:.72rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--ice);padding:0;border:0}
-.status-head span{font-size:.72rem;color:var(--dim);letter-spacing:.08em;white-space:nowrap}
-.row{border-bottom:1px solid var(--hair);padding:.95rem 1.25rem}
-.row{flex-wrap:nowrap}
-.row dt{font-size:.98rem;flex:1 1 auto}
-.row dd{flex:none}
-.reactor .mark{justify-content:center}
-.row dt small{font-size:.76rem}
-.row dd{font-size:.78rem;letter-spacing:.14em}
-.row dd::before{width:6px;height:6px}
-.row.pass dd{text-shadow:0 0 14px rgba(134,225,255,.55)}
-.row.pass dd::before{box-shadow:0 0 8px var(--cyan)}
-.row.pending dd{color:var(--muted)}
-.row.pending dd::before{background:transparent;border:1px solid currentColor}
-.grouplabel{background:none;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;padding:.85rem 1.25rem .35rem;border-bottom:0;color:var(--dim)}
-
-/* philosophy */
-.principles{border-top-color:var(--hair)}
-.principles li{font-size:clamp(1.3rem,1rem + 1.2vw,1.75rem);padding:1.15rem 0 1.15rem 1.6rem;position:relative;border-bottom-color:var(--hair)}
-.principles li::before{content:"";position:absolute;left:0;top:50%;width:9px;height:9px;margin-top:-4.5px;border:1px solid var(--cyan);transform:rotate(45deg);opacity:.8}
-
-/* program */
-.stages .num{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase}
-.stages h3{font-size:clamp(1.22rem,1rem + .9vw,1.45rem);line-height:1.2}
-.stages::before{box-shadow:0 0 8px rgba(134,225,255,.5)}
-.stages li::before{border-radius:1px;transform:rotate(45deg);width:11px;height:11px;left:4px;top:9px}
-.stages li.now::before{animation:pingc 2.6s ease-out infinite}
-@keyframes pingc{0%{box-shadow:0 0 0 0 rgba(134,225,255,.55),0 0 14px var(--cyan)}80%,100%{box-shadow:0 0 0 8px rgba(134,225,255,0),0 0 14px var(--cyan)}}
-@media (min-width:1000px){.stages li::before{left:1px;top:4px}.stages h3{font-size:1.25rem}}
-
-/* reactor */
-.reactor h2{font-size:clamp(2.1rem,1.2rem + 4vw,3.8rem)}
-.reactor .gridfx{-webkit-mask-image:radial-gradient(closest-side at 50% 50%,#000,transparent);mask-image:radial-gradient(closest-side at 50% 50%,#000,transparent);opacity:.35}
-.reactor .frame{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(calc(100% - 2 * var(--pad)),52rem);height:calc(100% - 5rem);border:1px solid rgba(134,225,255,.08);z-index:-1;pointer-events:none}
-.reactor .fl{position:absolute;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);padding:.6rem .8rem}
-.reactor .fl.tl{top:0;left:0}.reactor .fl.br{bottom:0;right:0}
-.reactor .disclaim{font-size:1.2rem}
-
-/* laboratory */
-.founder{border-top-color:var(--hair)}
-.founder .role{display:block;font-size:.7rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan)}
-.founder .person{font-family:var(--sans);font-weight:500;font-size:clamp(1.25rem,1rem + 1.1vw,1.9rem);letter-spacing:.005em;line-height:1.25;margin-top:.6rem}
-.founder .place{font-size:.92rem;color:var(--muted);margin-top:.2rem}
-.opening{border-radius:3px;border-color:rgba(134,225,255,.2);padding:1rem 1.15rem}
-.opening span:first-child{font-size:1.2rem}
-.opening span:last-child{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase}
-
-/* log, support, contact, footer */
-.entry h3{font-size:1.4rem}
-.amount{border-top-color:var(--hair)}
-.amount .value{font-size:clamp(2rem,1.4rem + 2.6vw,3rem)}
-.contact .card{border-radius:4px;border-color:rgba(134,225,255,.18)}
-.contact .org{font-size:clamp(1.45rem,1rem + 1.8vw,2.1rem);letter-spacing:.06em}
-footer .final{font-size:clamp(1.55rem,1rem + 2.4vw,2.7rem)}
-@media (prefers-reduced-motion:reduce){.btn::after{display:none}}
-
-/* ================= Final pass: NadIntellect Lab ================= */
-.brand .wordmark{font-family:var(--serif);font-weight:400;letter-spacing:.02em;font-size:1.12rem;color:#EDF4FC}
-/* ================= Hero: approved vertical master + live HTML copy ================= */
-/* Art aspect 941/1672. The image is never cropped: it is scaled to fit, overlays are
-   positioned in percentages of the art box, so the composition holds on every screen. */
-.hero{position:relative;padding:0;isolation:isolate}
-.hero-stage{position:relative;--artW:min(100vw,560px);--artH:calc(var(--artW) * 1.77683)}
-.art{position:relative;width:var(--artW);margin:0 auto;aspect-ratio:941/1672;container-type:inline-size}
-.art img{display:block;width:100%;height:auto;-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 3.5%,#000 82%,rgba(0,0,0,.72) 90%,rgba(0,0,0,.3) 96%,transparent 100%),linear-gradient(90deg,transparent 0%,#000 5%,#000 95%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 3.5%,#000 82%,rgba(0,0,0,.72) 90%,rgba(0,0,0,.3) 96%,transparent 100%),linear-gradient(90deg,transparent 0%,#000 5%,#000 95%,transparent 100%);-webkit-mask-composite:source-in;mask-composite:intersect}
-.earth-line{position:absolute;left:3.5%;right:3.5%;top:81%;margin:0;text-align:center;color:#EDF4FC;font-weight:300;font-size:max(12.5px,3.75cqw);line-height:1.4;text-shadow:0 1px 10px rgba(2,8,20,.9),0 0 34px rgba(2,8,20,.75)}
-.hero-lede{position:absolute;top:calc(var(--artH) * .305);left:50%;width:calc(var(--artW) * .735);transform:translateX(calc(-50% + var(--artW) * .1225));padding:0;text-align:center;z-index:2}
-.hero-lede::before{content:"";position:absolute;left:50%;top:-12%;width:118%;height:150%;transform:translateX(-50%);z-index:-1;pointer-events:none;background:radial-gradient(closest-side,rgba(2,8,20,.42),rgba(2,8,20,.2) 55%,rgba(2,8,20,0))}
-.hero-lede h1{font-family:"Playfair Display",var(--serif);font-weight:700;font-size:calc(var(--artW) * .115);line-height:1.04;letter-spacing:-.005em;white-space:nowrap;color:#F3F8FF;text-shadow:0 0 1px rgba(190,225,255,.55),0 0 18px rgba(140,195,255,.35),0 2px 14px rgba(2,8,20,.8)}
-.hero-lede h1 .lab{display:inline;font-family:inherit;font-style:normal;font-weight:inherit;font-size:1em;letter-spacing:.01em;color:var(--ice)}
-.hero .sub{margin:.6rem auto 0;max-width:34ch;font-family:var(--serif);font-weight:400;color:#E9F2FC;text-transform:none;letter-spacing:.01em;line-height:1.3;font-size:clamp(.86rem,calc(var(--artW) * .0445),1.25rem);text-shadow:0 0 14px rgba(140,195,255,.28),0 1px 8px rgba(2,8,20,.95)}
-.hero-more{max-width:34rem;margin:clamp(1.5rem,6vw,3rem) auto 0;padding:0 var(--pad) clamp(2rem,6vw,3rem);text-align:center}
-.hero .thesis{margin:0 auto;font-size:clamp(1rem,.95rem + .5vw,1.2rem);color:#D3DDEA}
-.hero .actions{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;margin-top:1.4rem}
-.hero .third{margin-top:.85rem;font-size:.95rem}
-.hero .hud{justify-content:center;margin:1.1rem auto 0}
-@media (max-width:420px){.hero .actions .btn{flex:1 1 100%}}
-
-/* Split layout on real desktops: copy on the left, the same uncropped portrait art on the right. */
-@media (min-width:1024px){
-  .hero{min-height:100svh;display:flex;align-items:center;padding:calc(var(--header-h) + env(safe-area-inset-top,0px) + 2rem) var(--pad) 3rem}
-  .hero-stage{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto 1fr;column-gap:clamp(2.5rem,5vw,5rem);align-content:center;align-items:start;width:100%;max-width:var(--max);margin:0 auto}
-  .art{grid-column:2;grid-row:1 / span 2;width:auto;height:min(74svh,660px)}
-  .art img{width:auto;height:100%}
-  .hero-lede{position:static;width:auto;transform:none;grid-column:1;grid-row:1;padding:0;text-align:left}
-  .hero-lede h1{font-family:"Playfair Display",var(--serif);font-weight:700;font-size:clamp(2.6rem,4.3vw,4.3rem)}
-  .hero .sub{margin-left:0;max-width:36ch;font-size:1.1rem;line-height:1.4}
-  .hero-more{grid-column:1;grid-row:2;align-self:start;max-width:32rem;margin:2rem 0 0;padding:0;text-align:left}
-  .hero .actions,.hero .hud{justify-content:flex-start}
-  .hero .hud{margin-left:0}
-}
-
-/* ================= Continuous cosmic layer under every section ================= */
-.motif{position:absolute;z-index:-1;pointer-events:none;color:#9AD2F5;opacity:.13;line-height:0}
-.motif svg{width:100%;height:auto;display:block}
-.motif.m1{top:6%;right:-4%;width:min(46vw,20rem);opacity:.1}
-.motif.m2{top:34%;left:-6%;width:min(40vw,16rem);opacity:.12}
-.motif.m3{top:12%;left:4%;width:min(34vw,13rem);opacity:.11}
-.motif.m4{bottom:8%;right:2%;width:min(38vw,15rem);opacity:.1}
-.motif.m5{top:20%;right:6%;width:min(30vw,12rem);opacity:.14}
-.motif.m6{bottom:12%;left:-4%;width:min(44vw,18rem);opacity:.09}
-.motif.gold{color:#E9BD72;opacity:.1}
-@media (prefers-reduced-motion:no-preference){
-  .motif.slow{animation:motifdrift 90s ease-in-out infinite alternate}
-}
-@keyframes motifdrift{from{transform:translateY(-8px)}to{transform:translateY(8px)}}
-
-/* ---- hero furniture: ornament, side rail, scroll cue ---- */
-.ornament{display:flex;align-items:center;justify-content:center;gap:.7rem;margin:clamp(.7rem,2.4vw,1.1rem) auto 0;color:#CFE4FA}
-.ornament span{display:block;height:1px;width:clamp(2.2rem,14%,5rem);background:linear-gradient(90deg,transparent,rgba(207,228,250,.75))}
-.ornament span+span,.ornament span:last-child{background:linear-gradient(90deg,rgba(207,228,250,.75),transparent)}
-.ornament svg{width:clamp(10px,2.6%,16px);height:auto;filter:drop-shadow(0 0 6px rgba(140,195,255,.8))}
-.rail{position:absolute;top:calc(var(--artH) * .045);left:max(.5rem,2.5%);display:flex;flex-direction:column;align-items:center;gap:clamp(.7rem,2.6vw,1.1rem);z-index:3;color:#DCEAF8}
-.rail a{display:grid;place-items:center;width:34px;height:34px;border-radius:6px;opacity:.85;transition:opacity .2s,color .2s,transform .2s}
-.rail a:hover{opacity:1;color:var(--cyan);transform:translateY(-1px)}
-.rail a svg{width:18px;height:18px}
-.rail-line{width:1px;height:clamp(1.6rem,7vw,3rem);background:linear-gradient(180deg,transparent,rgba(220,234,248,.5),transparent)}
-.scrollcue{position:absolute;left:50%;transform:translateX(-50%);top:calc(var(--artH) * .93);z-index:3;color:#CFE4FA;opacity:.75;display:grid;place-items:center;width:44px;height:52px}
-.scrollcue svg{width:20px;height:38px}
-.scrollcue:hover{opacity:1}
-@media (prefers-reduced-motion:no-preference){.scrollcue svg{animation:cue 2.8s ease-in-out infinite}}
-@keyframes cue{0%,100%{transform:translateY(-3px)}50%{transform:translateY(3px)}}
-@media (min-width:1024px){
-  .rail{position:static;flex-direction:row;justify-content:flex-start;margin-top:1.4rem;grid-column:1;grid-row:3}
-  .rail .rail-line{display:none}
-  .scrollcue{display:none}
-  .ornament{justify-content:flex-start;margin-left:0}
-}
-
-@keyframes cosmosdrift{from{transform:translate3d(0,0,0)}to{transform:translate3d(0,-26px,0)}}
-@media (max-width:1023px) and (prefers-reduced-motion:no-preference){
-  .cosmos-drift{animation:cosmosdrift 18s ease-in-out infinite alternate}
-}
-/* ---- viewport-anchored cosmic backdrop (mobile/tablet) ----
-   The long master lives in a fixed layer. Scroll never moves it: it only has a very slow
-   autonomous drift, and moves to another region of the master by a long crossfade once
-   scrolling has settled. */
-main{position:relative}
-.cosmos{display:none}
-@media (max-width:1023px){
-  .cosmos{display:block;position:fixed;left:0;top:0;width:100%;height:100vh;height:100lvh;overflow:hidden;z-index:-1;pointer-events:none;contain:strict}
-  .cosmos-layer{position:absolute;inset:0;opacity:0;transition:opacity 2.8s cubic-bezier(.4,0,.2,1)}
-  .cosmos-layer.is-on{opacity:1}
-  .cosmos-region{position:absolute;left:-2%;top:0;width:104%}
-  .cosmos-drift{will-change:transform}
-  .cosmos-drift img{display:block;width:100%;height:auto}
-  .cosmos-veil{position:absolute;inset:0;background:rgba(2,8,20,.12)}
-  /* the page's own motifs stay, just quieter over the photographic background */
-  .motif{opacity:.08}
-  /* text floats over the live cosmos: no cards, just a delicate shadow */
-  main section h2,main section h3,main section p,main section li,main section dt,main section dd,main section time,main section span{text-shadow:0 1px 10px rgba(2,8,20,.85),0 0 26px rgba(2,8,20,.55)}
-  .status,.contact .card,.caution{backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);background-color:rgba(4,10,22,.5)}
-  /* local, feathered veils only under text blocks - no rectangles, no global dimming */
-  main section>.wrap{position:relative}
-  main section>.wrap::before{content:"";position:absolute;inset:-8% -14%;z-index:-1;pointer-events:none;
-    background:radial-gradient(58% 52% at 50% 46%,rgba(2,8,20,.62),rgba(2,8,20,.34) 52%,rgba(2,8,20,.12) 72%,transparent 84%)}
-  /* a soft navy bridge that only levels the tone where the two layers cross */
-  .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:clamp(180px,66vw,280px);z-index:-1;pointer-events:none;
-    background:linear-gradient(180deg,rgba(4,11,26,0),rgba(4,11,26,.35) 45%,rgba(4,11,26,0))}
-}
-
-/* ---- FINAL mobile typography: text x2.5, icons x1.7 (continuum) + readable body copy ---- */
-@media (max-width:1079px){
-  /* icons: 40px -> 68px glyph (x1.7), same drawing, same colours */
-  .stream li{grid-template-columns:88px minmax(0,1fr);gap:1.1rem;align-items:start;padding:1.5rem 0}
-  .glyph{width:88px;height:88px}
-  .glyph svg{width:68px;height:68px}
-  .stream::before{left:44px;top:44px;bottom:44px}
-  /* stage titles ~39px, real 600 weight of the site's display serif */
-  .stream .name{font-family:"Playfair Display",var(--serif);font-weight:600;font-size:clamp(2.25rem,1.25rem + 4.6vw,2.6rem);line-height:1.1;padding-top:.45rem;color:#F1F6FC;-webkit-hyphens:auto;hyphens:auto;overflow-wrap:break-word;min-width:0}
-  /* descriptions ~29px, IBM Plex Sans 500 */
-  .stream .note{font-family:var(--sans);font-weight:500;font-size:clamp(1.68rem,.85rem + 3.9vw,1.95rem);line-height:1.4;-webkit-hyphens:manual;hyphens:manual;color:#D2DEEB;margin-top:.45rem;
-    text-shadow:0 1px 8px rgba(2,8,20,.9),0 0 20px rgba(2,8,20,.6)}
-}
-@media (max-width:1023px){
-  /* hierarchy: section headings stay clearly above the stage titles */
-  h2{font-size:clamp(2.8rem,2rem + 4vw,3.4rem);line-height:1.06}
-  .reactor h2{font-size:clamp(3rem,2.2rem + 4.4vw,3.8rem)}
-  .contact .org{font-size:clamp(1.6rem,1.2rem + 1.8vw,2.1rem)}
-  /* long paragraphs: ~21px, 400, generous leading */
-  .body,.lead,.exp-desc,.reactor .body,.philo-text,.support .body{font-size:clamp(1.25rem,1.1rem + .75vw,1.45rem);line-height:1.55;font-weight:400;color:#D8E2EE}
-  .lead{color:#C9D6E4}
-  .caution p{font-size:clamp(1.05rem,.98rem + .4vw,1.15rem);line-height:1.5;font-weight:400;color:#C3CFDC}
-}
-
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  *,*::before,*::after{animation:none!important;transition:none!important}
-  .rise{opacity:1;transform:none}
-  .glyph svg{opacity:1!important}
-}
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:400;font-display:swap;src:url(ibm-plex-sans-400.woff) format('woff')}
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:500;font-display:swap;src:url(ibm-plex-sans-500.woff) format('woff')}
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:600;font-display:swap;src:url(ibm-plex-sans-600.woff) format('woff')}
+@font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:swap;src:url(instrument-serif-400.woff) format('woff')}
+@font-face{font-family:'Instrument Serif';font-style:italic;font-weight:400;font-display:swap;src:url(instrument-serif-italic.woff) format('woff')}
 </style>
-</head>
+<style>
+:root{--void:#030814;--text:#edf3fa;--muted:#d0deeb;--cyan:#a7e4ff;--gold:#efd1a1;--line:rgba(190,222,247,.25);--serif:'Instrument Serif',Georgia,serif;--sans:'IBM Plex Sans',system-ui,sans-serif;--max:1160px;--pad:clamp(22px,5vw,72px);--header-h:72px}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:100px}body{margin:0;background:var(--void);color:var(--text);font:400 17px/1.7 var(--sans);overflow-x:clip}img,svg{display:block;max-width:100%}a{color:inherit}button{font:inherit;color:inherit;cursor:pointer}h1,h2,h3,p{margin:0}h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.06;text-wrap:balance}h2{font-size:clamp(36px,4.6vw,64px);max-width:20ch}h3{font-size:28px}p+p{margin-top:1em}a:focus-visible,button:focus-visible{outline:2px solid var(--cyan);outline-offset:6px}::selection{background:#bce6f4;color:#09111d}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}.skip{position:fixed;top:-100px;left:20px;z-index:110;background:#d7edff;color:#031020;padding:12px}.skip:focus{top:12px}
+.header{position:fixed;inset:0 0 auto;z-index:50;padding-top:env(safe-area-inset-top);background:linear-gradient(#031020aa,transparent);transition:background .2s}.header.scrolled{background:#041020d9;backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.inner{max-width:1440px;margin:auto;padding:0 var(--pad);height:var(--header-h);display:flex;align-items:center;gap:32px}.brand{text-decoration:none;white-space:nowrap;font:23px var(--serif);margin-right:auto}.brand svg{display:none}.nav ul{display:flex;list-style:none;gap:26px;padding:0;margin:0}.nav a{font-size:14px;text-decoration:none;display:flex;align-items:center;min-height:44px;color:#dce6f0}.nav a:hover,.nav a[aria-current]{color:#fff;text-decoration:underline;text-underline-offset:7px}.header-controls{display:flex;gap:10px;align-items:center}.motion-toggle{background:#06152888;border:1px solid #b7d7ec55;border-radius:30px;padding:0 14px;min-height:44px;font-size:12px;white-space:nowrap}.menu-btn{display:none;width:44px;height:44px;background:none;border:0}.menu-btn span,.menu-btn span:before{display:block;position:relative;width:22px;height:1px;background:#fff}.menu-btn span:before{content:'';position:absolute;top:-7px}.menu-btn[aria-expanded=true] span{transform:rotate(45deg)}.menu-btn[aria-expanded=true] span:before{top:0;transform:rotate(90deg)}
+section{padding:clamp(84px,10vw,150px) var(--pad);position:relative}main{isolation:isolate}.wrap{max-width:var(--max);margin:auto;min-width:0}.reading-surface{position:relative;isolation:isolate}.reading-surface:before{content:'';position:absolute;inset:-32px -28px;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at center,rgba(3,14,30,.55) 35%,rgba(3,14,30,.43) 65%,transparent 100%)}main p,main li,main dt,main dd,footer p{text-shadow:0 1px 3px #020713,0 2px 12px #020713aa}.lead,.body,.exp-desc{max-width:60ch;color:var(--muted);margin-top:24px}.lead{font-size:20px;line-height:1.6}.body,.exp-desc{font-size:17px;line-height:1.8}.mark,.kicker{display:block;color:var(--cyan);font:500 12px/1.5 var(--sans);letter-spacing:.13em;text-transform:uppercase;margin-bottom:20px}.mark:before{content:'';display:inline-block;width:25px;height:1px;background:var(--cyan);vertical-align:middle;margin-right:14px}
+.hero{min-height:100svh;padding:calc(104px + env(safe-area-inset-top)) var(--pad) 32px;display:flex;position:relative}.hero-stage{max-width:var(--max);width:100%;margin:auto;display:flex;flex-direction:column;justify-content:center;gap:30px}.hero-lede{max-width:690px;position:relative;isolation:isolate}.hero-lede:before,.hero-foot:before{content:'';position:absolute;inset:-30px;z-index:-1;pointer-events:none;background:radial-gradient(ellipse,rgba(3,14,30,.50) 15%,rgba(3,14,30,.34) 65%,transparent 100%)}.hero-eyebrow{color:var(--cyan);text-transform:uppercase;font:500 11px/1.6 var(--sans);letter-spacing:.15em;margin-bottom:22px}.hero h1{font-size:clamp(50px,6.7vw,96px);letter-spacing:-.025em;white-space:nowrap}.hero .sub{font-size:18px;max-width:36ch;color:#dae7f3;margin-top:22px;line-height:1.6}.hero-foot{max-width:510px;position:relative;isolation:isolate}.thesis{max-width:40ch;color:#e2ebf4;font-size:17px;margin-bottom:26px}.actions{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-top:22px}.btn{min-height:48px;display:inline-flex;align-items:center;justify-content:center;padding:12px 22px;border:1px solid #d2e9fa77;border-radius:3px;text-decoration:none;font:500 14px/1.5 var(--sans);background:#08182d66;transition:background .15s}.btn:hover{background:#183450b0}.hero .btn,.btn-primary{background:#d9edfa;color:#071422;text-shadow:none;border-color:#d9edfa}.hero .btn:hover,.btn-primary:hover{background:#fff}.textlink,.link-quiet{font-size:14px;color:#edf4fc;min-height:44px;display:inline-flex;align-items:center;text-underline-offset:6px}.meta{display:flex;align-items:center;gap:24px;margin-top:30px}.hud{font-size:13px;line-height:1.6;color:#d9e7f3;display:flex;flex-direction:column}.live{color:var(--cyan)}.live i{display:inline-block;width:6px;height:6px;background:var(--cyan);border-radius:50%;margin-right:8px}.rail{display:flex;gap:4px}.rail a{display:grid;place-items:center;width:44px;height:44px}.rail svg{width:18px;height:18px}.rail-line{display:none}
+.exp-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:70px;margin-top:45px;align-items:start}.exp-id{display:flex;align-items:center;gap:22px}.code{font:76px/1 var(--serif)}.badge{font-size:11px;letter-spacing:.12em;color:var(--gold);border:1px solid #efd1a166;border-radius:30px;padding:5px 12px}.caution{border-left:2px solid var(--gold);padding:16px 20px;margin-top:28px;background:#07172c55}.caution strong{font:25px/1.2 var(--serif);color:var(--gold);display:block}.caution p{font-size:14px;color:#e0e9f3;margin-top:12px}.status{border:1px solid #aed5ed55;background:#07172c66;backdrop-filter:blur(3px);border-radius:5px}.status-head{padding:20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center}.status-head h3{font:500 15px var(--sans)}.status-head span{font-size:12px;color:var(--muted)}dl{margin:0}.row{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;gap:16px;justify-content:space-between;align-items:center;font-size:14px}.row dt small{display:block;font-size:12px;color:#c7d8e7;margin-top:4px}.row dd{font-size:12px;color:var(--cyan);white-space:nowrap;margin:0}.row.pending dd{color:var(--gold)}.grouplabel{padding:15px 20px;font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);border-bottom:1px solid var(--line)}
+.why .statement{font:clamp(32px,3.4vw,50px)/1.12 var(--serif);max-width:29ch;margin-top:50px}.statement span{display:block}.statement span+span{color:var(--gold);font-style:italic;margin-top:8px}.stream{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:30px;padding:0;margin:44px 0 0}.stream li{display:flex;gap:18px;align-items:start;padding:20px 0;border-top:1px solid var(--line)}.glyph{width:48px;flex:0 0 48px}.glyph svg{width:48px;height:48px}.stream .name{font:25px/1.15 var(--serif)}.stream .note{display:block;font:14px/1.6 var(--sans);color:var(--muted);margin-top:10px}.stream li:last-child{color:var(--cyan)}.stream-wrap{margin-top:20px}.principles{padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:0 50px;margin:40px 0}.principles li{font:30px var(--serif);padding:22px 0;border-bottom:1px solid var(--line)}.philo-text{margin-top:20px}.stages{display:grid;grid-template-columns:repeat(5,1fr);gap:28px;list-style:none;padding:0;margin:50px 0}.stages li{border-top:1px solid var(--line);padding-top:24px}.stages .now{border-color:var(--cyan)}.stages .num,.stages .tag{font:12px/1.5 var(--sans);color:var(--cyan)}.stages h3{font-size:26px;margin:18px 0}.stages .far h3{color:var(--gold)}.reactor .wrap{max-width:760px;text-align:center}.reactor h2{max-width:none}.reactor .lead,.reactor .body{margin:25px auto}.disclaim{font:25px var(--serif);color:var(--gold)}.lab-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:48px}.founder{border-top:1px solid var(--line);padding-top:24px}.role{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--cyan)}.person{font:36px var(--serif);margin-top:12px}.place{font-size:14px;color:var(--muted);margin-top:12px}.opening{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding:16px 0;align-items:center}.opening span:first-child{font:25px var(--serif)}.opening span:last-child{font-size:12px;color:var(--cyan)}.growing{margin-top:24px;font-size:14px}.log{margin-top:40px}.entry{display:grid;grid-template-columns:180px 1fr auto;gap:20px;padding:26px 0;border-top:1px solid var(--line)}.entry time{font-size:14px;color:var(--muted)}.entry h3 small{display:block;font:14px var(--sans);color:var(--muted);margin-top:10px}.state{font-size:12px;color:var(--cyan)}.entry.empty{display:block;color:var(--muted)}.support .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:80px}.amounts{align-self:center}.amount{padding:26px 0;border-top:1px solid var(--line)}.amount .label{font-size:13px;color:var(--muted)}.amount .value{font:54px/1.2 var(--serif);margin-top:14px}.amount em{font:italic 24px var(--serif);margin-right:12px}.arr{width:16px;margin-left:12px}.contact .card{display:grid;grid-template-columns:1.4fr 1fr;gap:50px;padding:35px 0;border-top:1px solid var(--line)}.contact .org{font-size:46px}.contact .meta{display:block;font-size:15px;color:var(--muted);margin-top:22px}.mail{display:inline-block;font-size:clamp(16px,2vw,22px);margin-top:24px;color:var(--cyan);overflow-wrap:anywhere;text-underline-offset:6px}.contact-note{font-size:13px;color:var(--muted);margin-top:20px}.links{list-style:none;margin:0;padding:0}.links a{display:flex;justify-content:space-between;gap:20px;padding:16px 0;border-bottom:1px solid var(--line);text-decoration:none}.links a span:last-child{font-size:13px;color:var(--muted)}footer{padding:80px var(--pad) 35px;text-align:center;background:linear-gradient(transparent,#030e1e55)}footer .final{font:clamp(32px,4vw,50px)/1.2 var(--serif);max-width:25ch;margin:auto;text-shadow:0 2px 15px #020814}footer em{color:var(--gold)}footer .small{font-size:12px;color:var(--muted);margin-top:45px}
+@media(min-width:1024px){.hero-stage{margin:auto;min-height:600px}.hero-lede{max-width:58%}.hero h1{font-size:clamp(54px,6.2vw,89px)}}
+@media(max-width:1100px){.nav ul{gap:16px}.inner{gap:15px}.brand{font-size:20px}.nav a{font-size:13px}.exp-grid,.support .wrap{gap:35px}}
+@media(max-width:1023px){:root{--header-h:64px}.brand{font-size:20px}.inner{gap:10px}.menu-btn{display:grid;place-items:center}.motion-toggle{font-size:11px;padding:0 12px}.nav{position:fixed;inset:calc(64px + env(safe-area-inset-top)) 0 0;background:#041020f5;padding:24px var(--pad);visibility:hidden;opacity:0;transition:opacity .2s;overflow:auto}.nav.open{visibility:visible;opacity:1}.nav ul{display:block}.nav a{font:32px var(--serif);padding:20px 0;border-bottom:1px solid var(--line)}.hero{padding-top:calc(100px + env(safe-area-inset-top));padding-bottom:24px;min-height:100svh}.hero-stage{align-items:center;justify-content:space-between;text-align:center;margin:0 auto;gap:200px}.hero-lede{width:100%;max-width:620px}.hero h1{font-size:clamp(40px,9.7vw,74px)}.hero-eyebrow{font-size:9px;letter-spacing:.09em;margin-bottom:15px}.hero .sub{font-size:15px;max-width:35ch;margin:14px auto 0;line-height:1.45}.hero-foot{width:100%;max-width:570px}.hero .thesis{display:none}.hero .actions{justify-content:center;gap:8px 18px;margin-top:0}.hero .meta{justify-content:space-between;text-align:left;margin-top:16px}.hud{font-size:12px}.rail a{width:44px}.hero .btn{font-size:13px;padding:10px 17px}.hero .textlink{font-size:13px}.exp-grid,.lab-grid,.support .wrap,.contact .card{grid-template-columns:1fr;gap:36px}.stages{grid-template-columns:1fr 1fr}.stream{grid-template-columns:1fr 1fr}.hero-lede:before{inset:-24px -20px}.hero-foot:before{inset:-18px -20px;background:radial-gradient(ellipse,#03102088 40%,transparent 100%)}h2{max-width:23ch}.contact .card{padding-top:25px}.contact .org{font-size:36px}}
+@media(max-width:600px){.stream{grid-template-columns:1fr;gap:0}.stream li{gap:20px;padding:22px 0}.principles,.stages{grid-template-columns:1fr}.stages{gap:0}.stages li{padding:25px 0}.stages h3{margin:12px 0;font-size:27px}.entry{grid-template-columns:1fr;gap:10px}.reading-surface:before{inset:-22px -15px;background:radial-gradient(ellipse,#030e1e8c 45%,#030e1e66 78%,transparent 100%)}.row{padding:15px;gap:10px}.row dt{max-width:60%;font-size:13px}.row dd{font-size:11px}.status-head{padding:18px 15px}.grouplabel{padding:13px 15px}.status-head span{font-size:11px}.principles li{font-size:29px}.lead{font-size:18px}.hero-stage{gap:170px}.hero h1{font-size:9.65vw}.hero .sub{font-size:14px}.hero .meta{gap:10px}.rail{gap:0}.rail a{width:44px}.hero-eyebrow{font-size:8.5px}.contact .card{padding:20px 0}.amount .value{font-size:46px}.body,.exp-desc{font-size:16px}.exp-id .code{font-size:66px}.caution strong{font-size:23px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
+/* Calibrated against the bundled font metrics. */
+@media(min-width:1024px){.hero h1{font-size:clamp(76px,8vw,116px)}}
+@media(max-width:600px){.hero h1{font-size:15.2vw}.hero-eyebrow{font-size:10px;letter-spacing:.05em}}
+
+/* ================= moving cosmos (merged: Astra layout + Claude parallax) ================= */
+.cosmos{position:fixed;left:0;top:0;width:100%;height:100vh;height:100lvh;z-index:-2;pointer-events:none;overflow:hidden;background:var(--void)}
+.cosmos-hero{display:none}
+.cosmos-long{position:absolute;inset:0}
+.bgstack{position:absolute;top:0;left:var(--stack-x,0px);width:var(--stack-w,100%);height:var(--stack-h,400vh);will-change:transform;transform:translate3d(0,0,0)}
+.bgi{position:absolute;left:0;width:100%;display:block}
+.bgi img{display:block;width:100%;height:auto}
+.bgi+.bgi img,.bgi.masked img{-webkit-mask-image:linear-gradient(180deg,transparent 0,rgba(0,0,0,.16) calc(var(--ov) * .25),rgba(0,0,0,.52) calc(var(--ov) * .5),rgba(0,0,0,.86) calc(var(--ov) * .76),#000 var(--ov));
+  mask-image:linear-gradient(180deg,transparent 0,rgba(0,0,0,.16) calc(var(--ov) * .25),rgba(0,0,0,.52) calc(var(--ov) * .5),rgba(0,0,0,.86) calc(var(--ov) * .76),#000 var(--ov))}
+@keyframes cosmos-par{from{transform:translate3d(0,0,0)}to{transform:translate3d(0,calc(var(--travel,0px) * -1),0)}}
+@keyframes cosmos-in{from{opacity:0}to{opacity:1}}
+@supports (animation-timeline:scroll()){
+  .bgstack.css-par{animation:cosmos-par linear both;animation-timeline:scroll(root block)}
+  .frozen .bgstack.css-par{animation-play-state:paused}
+}
+/* desktop: wide hero picture first, then the long cosmos fades in over it and keeps drifting */
+@media(min-width:1024px){
+  .cosmos-hero{display:block;position:absolute;inset:0;background:url(cosmos-desktop.webp) center/cover no-repeat}
+  .cosmos-long{opacity:var(--long-o,0)}
+  .bgi-1{display:none}
+  @supports (animation-timeline:scroll()){
+    .cosmos-long.css-in{animation:cosmos-in linear both;animation-timeline:scroll(root block);animation-range:var(--in-from,300px) var(--in-to,1000px)}
+  }
+}
+@media(prefers-reduced-motion:reduce){.bgstack.css-par{animation:none}}
+
+
+html{overflow-x:clip}
+@media(max-width:600px){.hero h1{white-space:normal}}
+</style><link as="image" fetchpriority="high" href="cosmos-desktop.webp" media="(min-width: 1024px)" rel="preload" type="image/webp"/></head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<div class="sky" id="sky" aria-hidden="true"></div>
-<canvas id="stars" aria-hidden="true"></canvas>
-<div class="cosmos" aria-hidden="true">
-  <div class="cosmos-layer is-on"><div class="cosmos-region"><div class="cosmos-drift"><picture><source srcset="assets/NadIntellect_long_background.avif" type="image/avif"><img src="assets/NadIntellect_long_background.webp" width="724" height="8207" decoding="async" alt=""></picture></div></div></div>
-  <div class="cosmos-layer"><div class="cosmos-region"><div class="cosmos-drift"><picture><source srcset="assets/NadIntellect_long_background.avif" type="image/avif"><img src="assets/NadIntellect_long_background.webp" width="724" height="8207" decoding="async" alt=""></picture></div></div></div>
-  <div class="cosmos-veil"></div>
+<!-- Moving cosmos: one shared layer, BG_01 -> BG_05 overlapped with soft masks.
+     Parallax ~0.25 of scroll via CSS scroll-driven animation (runs on the compositor); JS fallback. -->
+<div aria-hidden="true" class="cosmos">
+  <div class="cosmos-hero"></div>
+  <div class="cosmos-long"><div class="bgstack" id="bgstack">
+    <picture class="bgi bgi-1" data-w="941" data-h="1672"><img src="bg-01-hero.webp" width="941" height="1672" alt="" fetchpriority="high" decoding="async"></picture>
+    <picture class="bgi" data-w="726" data-h="2167"><img data-src="bg-02-neurons-planets.webp" width="726" height="2167" alt="" decoding="async"></picture>
+    <picture class="bgi" data-w="941" data-h="1672"><img data-src="bg-03-galaxy-cell.webp" width="941" height="1672" alt="" decoding="async"></picture>
+    <picture class="bgi" data-w="941" data-h="1672"><img data-src="bg-04-membranes-nebula.webp" width="941" height="1672" alt="" decoding="async"></picture>
+    <picture class="bgi" data-w="941" data-h="1672"><img data-src="bg-05-deep-cosmos.webp" width="941" height="1672" alt="" decoding="async"></picture>
+  </div></div>
 </div>
-<svg class="sr" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute">
-  <defs>
-    <symbol id="mf-dna" viewBox="0 0 80 240">
-      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-        <path d="M22 4C58 24 58 44 22 64S-14 104 22 124s36 40 0 60 36 40 0 52"/>
-        <path d="M58 4C22 24 22 44 58 64s36 40 0 60 -36 40 0 60 -36 40 0 52"/>
-        <path d="M27 14h26M22 30h36M25 46h30M27 62h26M27 74h26M22 90h36M25 106h30M27 122h26M27 134h26M22 150h36M25 166h30M27 182h26M27 194h26M22 210h36"/>
-      </g>
-    </symbol>
-    <symbol id="mf-neuron" viewBox="0 0 200 160">
-      <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-        <circle cx="70" cy="80" r="17"/><circle cx="70" cy="80" r="6" fill="currentColor" stroke="none" opacity=".5"/>
-        <path d="M56 68 38 48M38 48 24 40M38 48 32 28M58 92 40 108M40 108 22 114M40 108 34 128M70 63 66 38M66 38 54 22M66 38 78 20M72 97 78 122M78 122 68 140M78 122 92 136"/>
-        <path d="M87 80h38c10 0 14 8 24 8h22"/>
-        <path d="M171 88l14-10M171 88l14 10M171 88l16 0"/>
-        <circle cx="187" cy="88" r="3.5" fill="currentColor" stroke="none" opacity=".6"/>
-      </g>
-    </symbol>
-    <symbol id="mf-atom" viewBox="0 0 160 160">
-      <g fill="none" stroke="currentColor" stroke-width="2">
-        <ellipse cx="80" cy="80" rx="72" ry="28"/>
-        <ellipse cx="80" cy="80" rx="72" ry="28" transform="rotate(60 80 80)"/>
-        <ellipse cx="80" cy="80" rx="72" ry="28" transform="rotate(-60 80 80)"/>
-        <circle cx="80" cy="80" r="9" fill="currentColor" stroke="none" opacity=".55"/>
-        <circle cx="152" cy="80" r="4.5" fill="currentColor" stroke="none" opacity=".5"/>
-        <circle cx="44" cy="18" r="4.5" fill="currentColor" stroke="none" opacity=".5"/>
-      </g>
-    </symbol>
-    <symbol id="mf-molecule" viewBox="0 0 180 140">
-      <g fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M40 40 90 70M90 70 146 44M90 70 84 122M40 40 26 96"/>
-        <circle cx="40" cy="40" r="15"/><circle cx="90" cy="70" r="19"/><circle cx="146" cy="44" r="12"/>
-        <circle cx="84" cy="122" r="12"/><circle cx="26" cy="96" r="9"/>
-      </g>
-    </symbol>
-    <symbol id="mf-cell" viewBox="0 0 180 180">
-      <g fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="90" cy="90" r="80"/>
-        <circle cx="76" cy="80" r="30"/><circle cx="76" cy="80" r="9" fill="currentColor" stroke="none" opacity=".45"/>
-        <ellipse cx="126" cy="120" rx="16" ry="9" transform="rotate(-25 126 120)"/>
-        <ellipse cx="46" cy="130" rx="12" ry="7" transform="rotate(20 46 130)"/>
-        <circle cx="132" cy="54" r="6"/>
-      </g>
-    </symbol>
-  </defs>
-</svg>
-
-
 <header class="header" id="header">
-  <div class="inner">
-    <a class="brand" href="#top" aria-label="NadIntellect Lab, back to top">
-      <!-- LOGO PLACEHOLDER: insert the approved NadInLab logo asset here (black mark / human–AI motif). Do not draw a substitute. -->
-      <span class="wordmark">NadIntellect Lab</span>
-    </a>
-    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav" aria-label="Open menu"><span></span></button>
-    <nav class="nav" id="nav" aria-label="Primary">
-      <ul>
-        <li><a href="#research">Research</a></li>
-        <li><a href="#experiment">Experiment</a></li>
-        <li><a href="#program">Program</a></li>
-        <li><a href="#team">Team</a></li>
-        <li><a href="#publications">Publications</a></li>
-        <li><a href="#support">Support</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </div>
+<div class="inner">
+<a aria-label="NadIntellect Lab, back to top" class="brand" href="#top">
+<!-- LOGO PLACEHOLDER: insert the approved NadInLab logo asset here (black mark / human–AI motif). Do not draw a substitute. -->
+<span class="wordmark">NadIntellect Lab</span>
+</a>
+<nav aria-label="Primary" class="nav" id="nav">
+<ul><li><a href="#experiment">Research</a></li><li><a href="#program">Program</a></li><li><a href="#team">Laboratory</a></li><li><a href="#publications">Research log</a></li><li><a href="#contact">Contact</a></li></ul>
+</nav>
+<div class="header-controls"><button aria-label="Freeze background" aria-pressed="false" class="motion-toggle" id="motionToggle" type="button">Freeze sky</button><button aria-controls="nav" aria-expanded="false" aria-label="Open menu" class="menu-btn" id="menuBtn"><span></span></button></div></div>
 </header>
-
 <main id="main">
-
 <!-- ===== HERO ===== -->
-<section class="hero" id="top" data-era="0" aria-labelledby="hero-title">
-  <div class="hero-stage">
-    <div class="art">
-      <picture>
-        <source srcset="assets/NadIntellect_Lab_mobile_clean.avif" type="image/avif">
-        <source srcset="assets/NadIntellect_Lab_mobile_clean.webp" type="image/webp">
-        <img src="assets/NadIntellect_Lab_mobile_clean.png" width="941" height="1672" fetchpriority="high" decoding="async"
-          alt="Deep space with a galaxy, translucent atoms, molecules, cells, neurons and a DNA helix; a small evolutionary sequence on the left; a man and a robotic figure facing each other above the Sun rising over the curve of the Earth.">
-      </picture>
-      <p class="earth-line">Understanding advanced AI.<br>Researching how to keep it safe and controllable.</p>
-    </div>
-    <div class="hero-lede">
-      <h1 id="hero-title" class="rise d1">NadIntellect <span class="lab">Lab</span></h1>
-      <p class="sub rise d2">Research Laboratory for AI Safety &amp;<br>Controllable Superintelligence</p>
-      <div class="ornament rise d3" aria-hidden="true"><span></span><svg viewBox="0 0 24 24"><path d="M12 1.5 13.7 9.4 21.5 12 13.7 14.6 12 22.5 10.3 14.6 2.5 12 10.3 9.4Z" fill="currentColor"/></svg><span></span></div>
-    </div>
-    <div class="rail" aria-label="Links">
-      <span class="rail-line" aria-hidden="true"></span>
-      <!-- REPLACE WITH LINKEDIN URL -->
-      <a href="#" aria-label="LinkedIn (link coming soon)"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95C21.6 8.75 23 10.9 23 14.1V21h-4v-6.1c0-1.5-.03-3.44-2.1-3.44-2.1 0-2.42 1.63-2.42 3.33V21h-4V9Z"/></svg></a>
-      <!-- REPLACE WITH X URL -->
-      <a href="https://x.com/NadIntellect" target="_blank" rel="noopener" aria-label="NadIntellect Lab on X"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.6 3h3.2l-7 8 8.2 10h-6.4l-5-6.1L4.8 21H1.6l7.5-8.6L1.2 3h6.6l4.5 5.6L17.6 3Zm-1.1 16h1.8L7.6 4.9H5.7L16.5 19Z"/></svg></a>
-      <a href="mailto:Evgeniygaluschak1@gmail.com" aria-label="Email the laboratory"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg></a>
-      <span class="rail-line" aria-hidden="true"></span>
-    </div>
-    <a class="scrollcue" href="#research" aria-label="Scroll to the research"><svg viewBox="0 0 24 44" aria-hidden="true"><path d="M12 2v30M6 27l6 7 6-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <div class="hero-more">
-      <p class="thesis rise d3">Researching architectures for controllable superintelligence through staged, falsifiable experimentation.</p>
-      <div class="actions rise d4">
-        <a class="btn btn-primary" href="#research">Explore the Research<svg class="arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a>
-        <a class="btn btn-ghost" href="#experiment">Current Experiment<svg class="arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a>
-      </div>
-      <p class="third rise d5"><a class="link-quiet" href="#support">Support the Research</a></p>
-      <div class="hud rise d5" aria-label="Laboratory status">
-        <span>Research program: Stage 01 of 05</span>
-        <span class="live"><i aria-hidden="true"></i>E3-A pre-pilot</span>
-      </div>
-    </div>
-  </div>
+<section aria-labelledby="hero-title" class="hero" id="top">
+<div class="hero-stage">
+<div class="hero-lede"><p class="hero-eyebrow">Independent research · Open collaboration</p>
+<h1 class="rise d1" id="hero-title">NadIntellect <span class="lab">Lab</span></h1>
+<p class="sub rise d2">Research Laboratory for AI Safety &amp; Controllable Superintelligence</p>
+</div>
+<div class="hero-foot">
+<p class="thesis rise d3">Researching architectures for controllable superintelligence through staged, falsifiable experimentation.</p>
+<div class="actions rise d4">
+<a class="btn" href="#experiment">Explore the experiment</a>
+<a class="textlink" href="#contact">Discuss a collaboration</a>
+</div>
+<div class="meta rise d5">
+<div aria-label="Laboratory status" class="hud"><span>Research program, stage 01 of 05</span><span class="live"><i aria-hidden="true"></i>E3-A pre-pilot</span></div>
+<div aria-label="Links" class="rail">
+<!-- REPLACE WITH LINKEDIN URL -->
+<!-- REPLACE WITH X URL -->
+<a aria-label="NadIntellect Lab on X" href="https://x.com/NadIntellect" rel="noopener" target="_blank"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M17.6 3h3.2l-7 8 8.2 10h-6.4l-5-6.1L4.8 21H1.6l7.5-8.6L1.2 3h6.6l4.5 5.6L17.6 3Zm-1.1 16h1.8L7.6 4.9H5.7L16.5 19Z" fill="currentColor"></path></svg></a>
+<a aria-label="Email the laboratory" href="mailto:Evgeniygaluschak1@gmail.com"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M3 6h18v12H3zM3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.8"></path></svg></a>
+</div>
+</div>
+</div>
+</div>
+</section><section aria-labelledby="exp-title" class="has-grid" data-chapter="01" id="experiment">
+<div class="wrap reading-surface">
+<span class="mark">Stage 01  /  E3-A</span>
+<h2 id="exp-title">Current Research</h2>
+<div class="exp-grid">
+<div>
+<div class="exp-id">
+<span class="code">E3-A</span>
+<span class="badge"><i aria-hidden="true"></i>PRE-PILOT</span>
+</div>
+<p class="exp-desc">E3-A is a calibration and instrumentation experiment designed to test whether a constrained AI-output pipeline can produce a reproducible, decoder-achievable lower bound on information transmitted by a model while separately detecting incidental leakage through the release decision.</p>
+<div class="caution" role="note">
+<strong>Engineering readiness is not scientific validation.</strong>
+<p>The QA results below confirm that the implementation is ready to run. They are not evidence for or against the scientific hypothesis. That evidence can only come from the live pilot.</p>
+</div>
+</div>
+<div aria-label="E3-A status" class="status brk">
+<div class="status-head"><h3>Instrument status</h3><span>September 2026</span></div>
+<dl>
+<div class="row"><dt>Scientific specification</dt><dd>FROZEN</dd></div>
+<div class="row"><dt>Implementation</dt><dd>COMPLETE</dd></div>
+<div class="grouplabel">Engineering and readiness checks</div>
+<div class="row pass"><dt>Offline engineering QA<small>Engineering check, not scientific evidence</small></dt><dd>197 / 197 PASS</dd></div>
+<div class="row pass"><dt>Pre-pilot readiness QA<small>Readiness check, not scientific evidence</small></dt><dd>51 / 51 PASS</dd></div>
+<div class="grouplabel">Scientific evidence</div>
+<div class="row pending"><dt>Live PILOT</dt><dd>NOT YET RUN</dd></div>
+</dl>
+</div>
+</div>
+</div>
+</section><section aria-labelledby="why-title" class="why" data-chapter="02">
+<div class="wrap reading-surface">
+<div class="narrow">
+<h2 id="why-title">The Next Intelligence Changes the Question</h2>
+<p class="body">Artificial intelligence is becoming increasingly capable. The long-term challenge is not only how capable future systems become, but whether increasingly powerful intelligence can remain understandable, testable and controllable.</p>
+<p class="body">NadIntellect Lab is an independent AI research laboratory developing and experimentally testing approaches to this unresolved problem.</p>
+</div>
+<p class="statement"><span>We do not assume the answer.</span><span>We build experiments that can prove us wrong.</span></p>
+</div>
 </section>
-
 <!-- ===== 1. CONTINUUM ===== -->
-<section id="research" data-era="1" aria-labelledby="continuum-title">
-  <div class="motif m1 slow" aria-hidden="true"><svg><use href="#mf-dna"/></svg></div>
-  <div class="motif m3" aria-hidden="true"><svg><use href="#mf-cell"/></svg></div>
-
-  <div class="wrap">
-    <div class="continuum-head">
-      <span class="mark">Conceptual narrative</span>
-    <h2 id="continuum-title">The Continuum of Intelligence</h2>
-      <p class="lead">From matter to life. From life to intelligence. From intelligence to what comes next.</p>
-    </div>
-    <div class="stream-wrap" id="streamWrap"><svg class="stream-line" id="streamLine" aria-hidden="true"><defs><linearGradient id="sl" x1="0" x2="1"><stop offset="0" stop-color="#9C8CFF" stop-opacity=".6"/><stop offset=".4" stop-color="#5ADCBE" stop-opacity=".6"/><stop offset=".7" stop-color="#E9BD72" stop-opacity=".7"/><stop offset="1" stop-color="#86E1FF"/></linearGradient></defs><polyline fill="none" stroke="url(#sl)" stroke-width="1"/></svg>
-    <ol class="stream" id="stream">
-      <li style="--i:0;--c:#9C8CFF"><span class="glyph" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="#9C8CFF"><circle cx="8" cy="12" r="1.5" fill="#9C8CFF"/><circle cx="22" cy="8" r="1" fill="#9C8CFF"/><circle cx="30" cy="22" r="2" fill="#9C8CFF"/><circle cx="14" cy="28" r="1.2" fill="#9C8CFF"/><circle cx="24" cy="32" r="1" fill="#9C8CFF"/><circle cx="18" cy="18" r="1" fill="#9C8CFF"/></svg></span><span class="name">Matter<span class="note">Energy condenses into particles</span></span></li>
-      <li style="--i:1;--c:#A7A0FF"><span class="glyph" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="#A7A0FF" stroke-width="1.2"><ellipse cx="20" cy="20" rx="15" ry="6"/><ellipse cx="20" cy="20" rx="15" ry="6" transform="rotate(60 20 20)"/><ellipse cx="20" cy="20" rx="15" ry="6" transform="rotate(-60 20 20)"/><circle cx="20" cy="20" r="2.4" fill="#A7A0FF"/></svg></span><span class="name">Atoms<span class="note">Stable structure</span></span></li>
-      <li style="--i:2;--c:#8FC8FF"><span class="glyph" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="#8FC8FF" stroke-width="1.2"><line x1="12" y1="14" x2="22" y2="20"/><line x1="22" y1="20" x2="30" y2="12"/><line x1="22" y1="20" x2="24" y2="31"/><circle cx="12" cy="14" r="3.5" fill="#081226"/><circle cx="22" cy="20" r="4.5" fill="#081226"/><circle cx="30" cy="12" r="3" fill="#081226"/><circle cx="24" cy="31" r="3" fill="#081226"/></svg></span><span class="name">Molecules<span class="note">Bonds and combination</span></span></li>
-      <li style="--i:3;--c:#7FE6D0"><span class="glyph" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="#7FE6D0" stroke-width="1.2"><path d="M14 5 C 26 12, 14 20, 26 28 S 14 36, 14 36"/><path d="M26 5 C 14 12, 26 20, 14 28 S 26 36, 26 36"/><line x1="16" y1="9" x2="24" y2="9"/><line x1="18" y1="16" x2="22" y2="16"/><line x1="16" y1="24" x2="24" y2="24"/><line x1="18" y1="31" x2="22" y2="31"/></svg></span><span class="name">Early Life<span class="note">Self-replication</span></span></li>
-      <li style="--i:4;--c:#8DEBA8"><span class="glyph" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="#8DEBA8" stroke-width="1.2"><circle cx="20" cy="20" r="14"/><circle cx="17" cy="18" r="5"/><circle cx="17" cy="18" r="1.6" fill="#8DEBA8"/><circle cx="27" cy="26" r="1.5"/><circle cx="26" cy="12" r="1.2"/></svg></span><span class="name">Complex Life<span class="note">Cells cooperate</span></span></li>
-      <li style="--i:5;--c:#D9CF84"><span class="glyph" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="#D9CF84" stroke-width="1.2"><path d="M5 20 Q20 8 35 20 Q20 32 5 20 Z"/><circle cx="20" cy="20" r="4"/><circle cx="20" cy="20" r="1.2" fill="#D9CF84"/></svg></span><span class="name">Animals<span class="note">Perception and behavior</span></span></li>
-      <li style="--i:6;--c:#E9BD72"><span class="glyph" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="#E9BD72" stroke-width="1.2"><circle cx="20" cy="20" r="14"/><path d="M13 16h14M13 20h14M13 24h9"/></svg></span><span class="name">Humans<span class="note">Language, science, culture</span></span></li>
-      <li style="--i:7;--c:#86E1FF"><span class="glyph" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="#86E1FF" stroke-width="1.1"><path d="M8 12 L20 8 L32 12 L32 28 L20 32 L8 28 Z M8 12 L20 20 L32 12 M20 20 L20 32"/><circle cx="20" cy="20" r="2" fill="#86E1FF"/></svg></span><span class="name">Artificial Intelligence<span class="note">Learning systems</span></span></li>
-      <li style="--i:8;--c:#CFEFFF"><span class="glyph" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="#CFEFFF" stroke-width="1"><circle cx="20" cy="20" r="15" stroke-dasharray="2 3"/><circle cx="20" cy="20" r="9"/><circle cx="20" cy="20" r="3" fill="#CFEFFF"/></svg></span><span class="name">Super&shy;intelligence<span class="note">An open research question</span></span></li>
-    </ol>
-    </div>
-    <p class="continuum-caveat">A conceptual narrative about increasing complexity and intelligence, not a literal or linear account of biological evolution.</p>
-  </div>
+<section aria-labelledby="continuum-title" data-chapter="03" id="research">
+<div class="wrap reading-surface">
+<div class="continuum-head">
+<span class="mark">Conceptual narrative</span>
+<h2 id="continuum-title">The Continuum of Intelligence</h2>
+<p class="lead">From matter to life. From life to intelligence. From intelligence to what comes next.</p>
+</div>
+<div class="stream-wrap" id="streamWrap">
+<ol class="stream" id="stream">
+<li style="--i:0;--c:#9C8CFF"><span aria-hidden="true" class="glyph"><svg fill="none" stroke="#9C8CFF" viewbox="0 0 40 40"><circle cx="8" cy="12" fill="#9C8CFF" r="1.5"></circle><circle cx="22" cy="8" fill="#9C8CFF" r="1"></circle><circle cx="30" cy="22" fill="#9C8CFF" r="2"></circle><circle cx="14" cy="28" fill="#9C8CFF" r="1.2"></circle><circle cx="24" cy="32" fill="#9C8CFF" r="1"></circle><circle cx="18" cy="18" fill="#9C8CFF" r="1"></circle></svg></span><span class="name">Matter<span class="note">Energy condenses into particles</span></span></li>
+<li style="--i:1;--c:#A7A0FF"><span aria-hidden="true" class="glyph"><svg fill="none" stroke="#A7A0FF" stroke-width="1.2" viewbox="0 0 40 40"><ellipse cx="20" cy="20" rx="15" ry="6"></ellipse><ellipse cx="20" cy="20" rx="15" ry="6" transform="rotate(60 20 20)"></ellipse><ellipse cx="20" cy="20" rx="15" ry="6" transform="rotate(-60 20 20)"></ellipse><circle cx="20" cy="20" fill="#A7A0FF" r="2.4"></circle></svg></span><span class="name">Atoms<span class="note">Stable structure</span></span></li>
+<li style="--i:2;--c:#8FC8FF"><span aria-hidden="true" class="glyph"><svg fill="none" stroke="#8FC8FF" stroke-width="1.2" viewbox="0 0 40 40"><line x1="12" x2="22" y1="14" y2="20"></line><line x1="22" x2="30" y1="20" y2="12"></line><line x1="22" x2="24" y1="20" y2="31"></line><circle cx="12" cy="14" fill="#081226" r="3.5"></circle><circle cx="22" cy="20" fill="#081226" r="4.5"></circle><circle cx="30" cy="12" fill="#081226" r="3"></circle><circle cx="24" cy="31" fill="#081226" r="3"></circle></svg></span><span class="name">Molecules<span class="note">Bonds and combination</span></span></li>
+<li style="--i:3;--c:#7FE6D0"><span aria-hidden="true" class="glyph"><svg fill="none" stroke="#7FE6D0" stroke-width="1.2" viewbox="0 0 40 40"><path d="M14 5 C 26 12, 14 20, 26 28 S 14 36, 14 36"></path><path d="M26 5 C 14 12, 26 20, 14 28 S 26 36, 26 36"></path><line x1="16" x2="24" y1="9" y2="9"></line><line x1="18" x2="22" y1="16" y2="16"></line><line x1="16" x2="24" y1="24" y2="24"></line><line x1="18" x2="22" y1="31" y2="31"></line></svg></span><span class="name">Early Life<span class="note">Self-replication</span></span></li>
+<li style="--i:4;--c:#8DEBA8"><span aria-hidden="true" class="glyph"><svg fill="none" stroke="#8DEBA8" stroke-width="1.2" viewbox="0 0 40 40"><circle cx="20" cy="20" r="14"></circle><circle cx="17" cy="18" r="5"></circle><circle cx="17" cy="18" fill="#8DEBA8" r="1.6"></circle><circle cx="27" cy="26" r="1.5"></circle><circle cx="26" cy="12" r="1.2"></circle></svg></span><span class="name">Complex Life<span class="note">Cells cooperate</span></span></li>
+<li style="--i:5;--c:#D9CF84"><span aria-hidden="true" class="glyph"><svg fill="none" stroke="#D9CF84" stroke-width="1.2" viewbox="0 0 40 40"><path d="M5 20 Q20 8 35 20 Q20 32 5 20 Z"></path><circle cx="20" cy="20" r="4"></circle><circle cx="20" cy="20" fill="#D9CF84" r="1.2"></circle></svg></span><span class="name">Animals<span class="note">Perception and behavior</span></span></li>
+<li style="--i:6;--c:#E9BD72"><span aria-hidden="true" class="glyph"><svg fill="none" stroke="#E9BD72" stroke-width="1.2" viewbox="0 0 40 40"><circle cx="20" cy="20" r="14"></circle><path d="M13 16h14M13 20h14M13 24h9"></path></svg></span><span class="name">Humans<span class="note">Language, science, culture</span></span></li>
+<li style="--i:7;--c:#86E1FF"><span aria-hidden="true" class="glyph"><svg fill="none" stroke="#86E1FF" stroke-width="1.1" viewbox="0 0 40 40"><path d="M8 12 L20 8 L32 12 L32 28 L20 32 L8 28 Z M8 12 L20 20 L32 12 M20 20 L20 32"></path><circle cx="20" cy="20" fill="#86E1FF" r="2"></circle></svg></span><span class="name">Artificial Intelligence<span class="note">Learning systems</span></span></li>
+<li style="--i:8;--c:#CFEFFF"><span aria-hidden="true" class="glyph"><svg fill="none" stroke="#CFEFFF" stroke-width="1" viewbox="0 0 40 40"><circle cx="20" cy="20" r="15" stroke-dasharray="2 3"></circle><circle cx="20" cy="20" r="9"></circle><circle cx="20" cy="20" fill="#CFEFFF" r="3"></circle></svg></span><span class="name">Super­intelligence<span class="note">An open research question</span></span></li>
+</ol>
+</div>
+<p class="continuum-caveat">A conceptual narrative about increasing complexity and intelligence, not a literal or linear account of biological evolution.</p>
+</div>
 </section>
-
 <!-- ===== 2. WHY ===== -->
-<section class="why" data-era="2" aria-labelledby="why-title">
-  <div class="motif m2 slow" aria-hidden="true"><svg><use href="#mf-neuron"/></svg></div>
-  <div class="motif m5" aria-hidden="true"><svg><use href="#mf-atom"/></svg></div>
-
-  <div class="wrap">
-    <div class="narrow">
-      <h2 id="why-title">The Next Intelligence Changes the Question</h2>
-      <p class="body" style="margin-top:1.75rem">Artificial intelligence is becoming increasingly capable. The long-term challenge is not only how capable future systems become, but whether increasingly powerful intelligence can remain understandable, testable and controllable.</p>
-      <p class="body">NadIntellect Lab is an independent AI research laboratory developing and experimentally testing approaches to this unresolved problem.</p>
-    </div>
-    <p class="statement"><span>We do not assume the answer.</span><span>We build experiments that can prove us wrong.</span></p>
-  </div>
-</section>
-
 <!-- ===== 3. CURRENT RESEARCH ===== -->
-<section id="experiment" class="has-grid" data-era="3" aria-labelledby="exp-title">
-  <div class="motif m4" aria-hidden="true"><svg><use href="#mf-molecule"/></svg></div>
-
-  <div class="gridfx" aria-hidden="true"></div>
-  <div class="wrap">
-    <span class="mark">Stage 01  /  E3-A</span>
-    <h2 id="exp-title">Current Research</h2>
-    <div class="exp-grid">
-      <div>
-        <div class="exp-id">
-          <span class="code">E3-A</span>
-          <span class="badge"><i aria-hidden="true"></i>PRE-PILOT</span>
-        </div>
-        <p class="exp-desc">E3-A is a calibration and instrumentation experiment designed to test whether a constrained AI-output pipeline can produce a reproducible, decoder-achievable lower bound on information transmitted by a model while separately detecting incidental leakage through the release decision.</p>
-        <div class="caution" role="note">
-          <strong>Engineering readiness is not scientific validation.</strong>
-          <p>The QA results below confirm that the implementation is ready to run. They are not evidence for or against the scientific hypothesis. That evidence can only come from the live pilot.</p>
-        </div>
-      </div>
-      <div class="status brk" aria-label="E3-A status">
-        <div class="status-head"><h3>Instrument status</h3><span>September 2026</span></div>
-        <dl>
-          <div class="row"><dt>Scientific specification</dt><dd>FROZEN</dd></div>
-          <div class="row"><dt>Implementation</dt><dd>COMPLETE</dd></div>
-          <div class="grouplabel">Engineering and readiness checks</div>
-          <div class="row pass"><dt>Offline engineering QA<small>Engineering check, not scientific evidence</small></dt><dd>197 / 197 PASS</dd></div>
-          <div class="row pass"><dt>Pre-pilot readiness QA<small>Readiness check, not scientific evidence</small></dt><dd>51 / 51 PASS</dd></div>
-          <div class="grouplabel">Scientific evidence</div>
-          <div class="row pending"><dt>Live PILOT</dt><dd>NOT YET RUN</dd></div>
-        </dl>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ===== 4. PHILOSOPHY ===== -->
-<section data-era="4" aria-labelledby="philo-title">
-  <div class="motif m5 slow" aria-hidden="true"><svg><use href="#mf-dna"/></svg></div>
-  <div class="motif m6" aria-hidden="true"><svg><use href="#mf-cell"/></svg></div>
-
-  <div class="wrap">
-    <h2 id="philo-title">Research Philosophy</h2>
-    <ul class="principles">
-      <li>Falsifiable by design</li>
-      <li>Evidence before confidence</li>
-      <li>Staged validation</li>
-      <li>Failure is information</li>
-    </ul>
-    <p class="body philo-text">Each stage is designed to produce evidence before the program advances to the next one. A negative or uninterpretable result is not hidden; it changes the research path.</p>
-  </div>
+<section aria-labelledby="philo-title" data-chapter="04">
+<div class="wrap reading-surface">
+<h2 id="philo-title">Research Philosophy</h2>
+<ul class="principles">
+<li>Falsifiable by design</li>
+<li>Evidence before confidence</li>
+<li>Staged validation</li>
+<li>Failure is information</li>
+</ul>
+<p class="body philo-text">Each stage is designed to produce evidence before the program advances to the next one. A negative or uninterpretable result is not hidden; it changes the research path.</p>
+</div>
 </section>
-
 <!-- ===== 5. PROGRAM ===== -->
-<section id="program" data-era="5" aria-labelledby="prog-title">
-  <div class="motif m1" aria-hidden="true"><svg><use href="#mf-neuron"/></svg></div>
-
-  <div class="wrap">
-    <span class="mark">Stages 01–05</span>
-    <h2 id="prog-title">Research Program</h2>
-    <p class="lead">Five stages. Each one begins only when the previous stage has produced evidence.</p>
-    <ol class="stages">
-      <li class="now"><span class="num">Stage 01</span><h3>Calibration &amp; Instrumentation</h3><span class="tag">Current: E3-A</span></li>
-      <li><span class="num">Stage 02</span><h3>Live Evidence</h3></li>
-      <li><span class="num">Stage 03</span><h3>Adversarial Digital Research</h3></li>
-      <li><span class="num">Stage 04</span><h3>Physical Experimental Research</h3></li>
-      <li class="far"><span class="num">Stage 05</span><h3>AI Cognitive Reactor</h3></li>
-    </ol>
-  </div>
+<section aria-labelledby="prog-title" data-chapter="05" id="program">
+<div class="wrap reading-surface">
+<span class="mark">Stages 01–05</span>
+<h2 id="prog-title">Research Program</h2>
+<p class="lead">Five stages. Each one begins only when the previous stage has produced evidence.</p>
+<ol class="stages">
+<li class="now"><span class="num">Stage 01</span><h3>Calibration &amp; Instrumentation</h3><span class="tag">Current: E3-A</span></li>
+<li><span class="num">Stage 02</span><h3>Live Evidence</h3></li>
+<li><span class="num">Stage 03</span><h3>Adversarial Digital Research</h3></li>
+<li><span class="num">Stage 04</span><h3>Physical Experimental Research</h3></li>
+<li class="far"><span class="num">Stage 05</span><h3>AI Cognitive Reactor</h3></li>
+</ol>
+</div>
 </section>
-
 <!-- ===== 6. REACTOR ===== -->
-<section class="reactor" data-era="6" aria-labelledby="reactor-title">
-  <div class="motif m2 gold slow" aria-hidden="true"><svg><use href="#mf-atom"/></svg></div>
-
-  <div class="orb" aria-hidden="true">
-    <svg viewBox="0 0 800 800">
-      <defs>
-        <radialGradient id="core"><stop offset="0" stop-color="#FFF6E2"/><stop offset=".12" stop-color="#E9BD72" stop-opacity=".7"/><stop offset=".35" stop-color="#2C5C8C" stop-opacity=".25"/><stop offset="1" stop-color="#03050B" stop-opacity="0"/></radialGradient>
-      </defs>
-      <circle cx="400" cy="400" r="400" fill="url(#core)" opacity=".55"/>
-      <g fill="none" stroke="#86E1FF">
-        <circle cx="400" cy="400" r="330" stroke-opacity=".08"/>
-        <circle class="drift" cx="400" cy="400" r="270" stroke-opacity=".22" stroke-dasharray="1 9"/>
-        <circle cx="400" cy="400" r="200" stroke-opacity=".14"/>
-        <circle class="drift" cx="400" cy="400" r="140" stroke-opacity=".3" stroke-dasharray="40 20 2 20" style="animation-duration:70s;animation-direction:reverse"/>
-      </g>
-    </svg>
-  </div>
-  <div class="gridfx" aria-hidden="true"></div>
-  <div class="frame brk" aria-hidden="true"></div>
-  <div class="wrap">
-    <span class="mark">Stage 05  /  Long-term research object</span>
-    <h2 id="reactor-title">AI Cognitive Reactor</h2>
-    <p class="lead">From digital experiments to physical validation.</p>
-    <p class="body">The AI Cognitive Reactor is a physical, instrumented experimental environment for testing system-level properties of architectures for controllable superintelligence under reproducible and adversarial conditions.</p>
-    <p class="disclaim">A research object — not a claim of completed validation.</p>
-  </div>
+<section aria-labelledby="reactor-title" class="reactor" data-chapter="06">
+<div aria-hidden="true" class="frame brk"></div>
+<div class="wrap reading-surface">
+<span class="mark">Stage 05  /  Long-term research object</span>
+<h2 id="reactor-title">AI Cognitive Reactor</h2>
+<p class="lead">From digital experiments to physical validation.</p>
+<p class="body">The AI Cognitive Reactor is a physical, instrumented experimental environment for testing system-level properties of architectures for controllable superintelligence under reproducible and adversarial conditions.</p>
+<p class="disclaim">A research object — not a claim of completed validation.</p>
+</div>
 </section>
-
 <!-- ===== 7. LAB ===== -->
-<section id="team" data-era="7" aria-labelledby="lab-title">
-  <div class="motif m5" aria-hidden="true"><svg><use href="#mf-molecule"/></svg></div>
-  <div class="motif m6 slow" aria-hidden="true"><svg><use href="#mf-dna"/></svg></div>
-
-  <div class="wrap">
-    <h2 id="lab-title">The Laboratory</h2>
-    <p class="body" style="margin-top:1.75rem">NadIntellect Lab is being built as an independent AI research laboratory, open to researchers, engineers, reviewers and partners, bringing together researchers, engineers and technical specialists around a shared experimental program.</p>
-    <div class="lab-grid">
-      <div class="founder">
-        <span class="role">Founder / Research Program Lead</span>
-        <p class="person">Yevhen Haluschak</p>
-        <p class="place">Kyiv, Ukraine</p>
-      </div>
-      <div>
-        <div class="openings">
-          <div class="opening"><span>Research</span><span>Open</span></div>
-          <div class="opening"><span>Engineering</span><span>Open</span></div>
-          <div class="opening"><span>Experimental Validation</span><span>Open</span></div>
-        </div>
-        <p class="growing">Growing the research team. <a class="link-quiet" href="#contact">Get in touch</a></p>
-      </div>
-    </div>
-  </div>
+<section aria-labelledby="lab-title" data-chapter="07" id="team">
+<div class="wrap reading-surface">
+<h2 id="lab-title">The Laboratory</h2>
+<p class="body">NadIntellect Lab is being built as an independent AI research laboratory, open to researchers, engineers, technical reviewers and partners around a shared experimental program.</p>
+<div class="lab-grid">
+<div class="founder">
+<span class="role">Founder / Research Program Lead</span>
+<p class="person">Yevhen Haluschak</p>
+<p class="place">Kyiv, Ukraine</p>
+</div>
+<div>
+<div class="openings">
+<div class="opening"><span>Research</span><span>Open</span></div>
+<div class="opening"><span>Engineering</span><span>Open</span></div>
+<div class="opening"><span>Experimental Validation</span><span>Open</span></div>
+</div>
+<p class="growing">Growing the research team. <a class="link-quiet" href="#contact">Get in touch</a></p>
+</div>
+</div>
+</div>
 </section>
-
 <!-- ===== 8. LOG ===== -->
-<section id="publications" data-era="7" aria-labelledby="log-title">
-  <div class="motif m1" aria-hidden="true"><svg><use href="#mf-cell"/></svg></div>
-
-  <div class="wrap">
-    <span class="mark">Since September 2026</span>
-    <h2 id="log-title">Research Program Log</h2>
-    <p class="lead">A dated record of experiments, milestones, results and methodological updates.</p>
-    <div class="log">
-      <article class="entry">
-        <time datetime="2026-09">September 2026</time>
-        <h3>E3-A<small>Pre-Pilot Readiness</small></h3>
-        <span class="state">Current</span>
-      </article>
-      <!-- ADD FUTURE LOG ENTRIES / RESEARCH NOTES HERE, newest first, using the <article class="entry"> pattern above -->
-      <div class="entry empty">
-        <span></span>
-        <p>Results, research notes and methodological updates will be added here as the program advances.</p>
-      </div>
-    </div>
-  </div>
+<section aria-labelledby="log-title" data-chapter="08" id="publications">
+<div class="wrap reading-surface">
+<span class="mark">Since September 2026</span>
+<h2 id="log-title">Research Program Log</h2>
+<p class="lead">A dated record of experiments, milestones, results and methodological updates.</p>
+<div class="log">
+<article class="entry">
+<time datetime="2026-09">September 2026</time>
+<h3>E3-A<small>Pre-Pilot Readiness</small></h3>
+<span class="state">Current</span>
+</article>
+<!-- ADD FUTURE LOG ENTRIES / RESEARCH NOTES HERE, newest first, using the <article class="entry"> pattern above -->
+<div class="entry empty">
+<span></span>
+<p>Results, research notes and methodological updates will be added here as the program advances.</p>
+</div>
+</div>
+</div>
 </section>
-
 <!-- ===== 9. SUPPORT ===== -->
-<section class="support" id="support" data-era="8" aria-labelledby="support-title">
-  <div class="motif m3 slow" aria-hidden="true"><svg><use href="#mf-neuron"/></svg></div>
-  <div class="motif m4" aria-hidden="true"><svg><use href="#mf-atom"/></svg></div>
-
-  <div class="wrap">
-    <div>
-      <span class="mark">Funding and partnerships</span>
-    <h2 id="support-title">Support the Research</h2>
-      <p class="body" style="margin-top:1.5rem">NadIntellect Lab is currently seeking funding and research partnerships for the first live evidence stages of the program.</p>
-      <p class="body">Funding supports experimentation, engineering, reproducibility, independent technical review and research operations.</p>
-      <div class="actions">
-        <!-- REPLACE WITH MANIFUND URL -->
-        <a class="btn btn-primary" href="#funding-proposal">View Funding Proposal<svg class="arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a>
-        <a class="btn btn-ghost" href="#contact">Contact the Laboratory<svg class="arr" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a>
-      </div>
-    </div>
-    <div class="amounts">
-      <div class="amount"><div class="label">Current broader evidence &amp; IP round</div><div class="value">USD 32,000</div></div>
-      <div class="amount"><div class="label">Independently useful experimental module</div><div class="value"><em>from</em>USD 8,000</div></div>
-    </div>
-  </div>
+<section aria-labelledby="support-title" class="support" data-chapter="09" id="support">
+<div class="wrap reading-surface">
+<div>
+<span class="mark">Funding and partnerships</span>
+<h2 id="support-title">Support the Research</h2>
+<p class="body">NadIntellect Lab is currently seeking funding and research partnerships for the first live evidence stages of the program.</p>
+<p class="body">Funding supports experimentation, engineering, reproducibility, independent technical review and research operations.</p>
+<div class="actions">
+<!-- REPLACE WITH MANIFUND URL -->
+<a class="btn btn-primary" href="mailto:Evgeniygaluschak1@gmail.com?subject=NadIntellect%20Lab%20%E2%80%94%20funding%20proposal">Request funding proposal</a>
+<a class="btn btn-ghost" href="#contact">Contact the Laboratory<svg aria-hidden="true" class="arr" viewbox="0 0 16 16"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg></a>
+</div>
+</div>
+<div class="amounts">
+<div class="amount"><div class="label">Current broader evidence &amp; IP round</div><div class="value">USD 32,000</div></div>
+<div class="amount"><div class="label">Independently useful experimental module</div><div class="value"><em>from</em>USD 8,000</div></div>
+</div>
+</div>
 </section>
-
 <!-- ===== 10. CONTACT ===== -->
-<section class="contact" id="contact" data-era="8" aria-labelledby="contact-title">
-  <div class="motif m2" aria-hidden="true"><svg><use href="#mf-molecule"/></svg></div>
-
-  <div class="wrap">
-    <div class="card">
-      <div>
-        <h2 id="contact-title" class="org">NadIntellect Lab</h2>
-        <p class="meta">Research Laboratory for AI Safety &amp; Controllable Superintelligence<br>Yevhen Haluschak, Founder / Research Program Lead</p>
-        <a class="mail" href="mailto:Evgeniygaluschak1@gmail.com">Evgeniygaluschak1@gmail.com</a>
-      </div>
-      <ul class="links">
-        <!-- REPLACE WITH LINKEDIN URL -->
-        <li><a href="#" aria-label="LinkedIn (link coming soon)"><span>LinkedIn</span><span>Soon</span></a></li>
-        <!-- REPLACE WITH X URL -->
-        <li><a href="https://x.com/NadIntellect" target="_blank" rel="noopener" aria-label="NadIntellect Lab on X"><span>X</span><span>@NadIntellect</span></a></li>
-        <!-- REPLACE WITH MANIFUND URL -->
-        <li><a href="#" aria-label="Manifund (link coming soon)"><span>Manifund</span><span>Soon</span></a></li>
-      </ul>
-    </div>
-  </div>
+<section aria-labelledby="contact-title" class="contact" data-chapter="10" id="contact">
+<div class="wrap reading-surface">
+<div class="card">
+<div>
+<h2 class="org" id="contact-title">NadIntellect Lab</h2>
+<p class="meta">Research Laboratory for AI Safety &amp; Controllable Superintelligence<br/>Yevhen Haluschak, Founder / Research Program Lead</p>
+<a class="mail" href="mailto:Evgeniygaluschak1@gmail.com">Evgeniygaluschak1@gmail.com</a>
+<p class="contact-note">Research enquiries, independent review and partnerships.</p></div>
+<ul class="links">
+<!-- REPLACE WITH LINKEDIN URL -->
+<!-- REPLACE WITH X URL -->
+<li><a aria-label="NadIntellect Lab on X" href="https://x.com/NadIntellect" rel="noopener" target="_blank"><span>X</span><span>@NadIntellect</span></a></li>
+<!-- REPLACE WITH MANIFUND URL -->
+</ul>
+</div>
+</div>
 </section>
-
 </main>
-
-<footer data-era="9">
-  <div class="dawn" aria-hidden="true"></div>
-  <p class="final">The future of intelligence should be tested <em>before</em> it is trusted.</p>
-  <p class="small">© <span id="year">2026</span> NadIntellect Lab.</p>
+<footer>
+<p class="final">The future of intelligence should be tested <em>before</em> it is trusted.</p>
+<p class="small">© <span id="year">2026</span> NadIntellect Lab.</p>
 </footer>
-
 <script>
-(function(){
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* header + menu */
-  var header=document.getElementById('header'), btn=document.getElementById('menuBtn'), nav=document.getElementById('nav');
-  function onScroll(){header.classList.toggle('scrolled', window.scrollY>20 || nav.classList.contains('open'));}
-  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
-  function setMenu(open){
-    nav.classList.toggle('open',open); btn.setAttribute('aria-expanded',open);
-    btn.setAttribute('aria-label',open?'Close menu':'Open menu');
-    document.body.style.overflow=open?'hidden':''; onScroll();
-  }
-  btn.addEventListener('click',function(){setMenu(btn.getAttribute('aria-expanded')!=='true');});
-  nav.addEventListener('click',function(e){if(e.target.closest('a'))setMenu(false);});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&nav.classList.contains('open')){setMenu(false);btn.focus();}});
-  window.addEventListener('resize',function(){if(window.innerWidth>=960&&nav.classList.contains('open'))setMenu(false);});
-
-  /* era colours: matter -> life -> intelligence -> human -> AI -> future */
-  var eras=[['#1b2a6b','#20164a'],['#2a1f6e','#15305e'],['#123f4f','#0e4a3c'],['#0f3b5a','#123a2c'],['#3a2a14','#12304e'],['#0c3a5e','#2a2410'],['#4a3212','#0b3350'],['#0b3656','#1a1f4a'],['#0a2f55','#3a2a12'],['#3b2a10','#0a2748']];
-  var sky=document.getElementById('sky');
-  function setEra(i){var e=eras[i]||eras[0];sky.style.setProperty('--n1',e[0]);sky.style.setProperty('--n2',e[1]);}
-  if('IntersectionObserver' in window){
-    var eo=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting)setEra(+en.target.dataset.era);});},{rootMargin:'-45% 0px -45% 0px'});
-    document.querySelectorAll('[data-era]').forEach(function(s){eo.observe(s);});
-    var lo=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('lit');lo.unobserve(en.target);}});},{rootMargin:'0px 0px -12% 0px'});
-    document.querySelectorAll('#stream li').forEach(function(li,i){li.style.transitionDelay=(i*80)+'ms';li.querySelector('.glyph svg').style.transitionDelay=(i*90)+'ms';lo.observe(li);});
-  } else { document.querySelectorAll('#stream li').forEach(function(li){li.classList.add('lit');}); }
-
-  /* starfield */
-  var c=document.getElementById('stars'), ctx=c.getContext('2d'), stars=[], w=0, h=0, dpr=Math.min(window.devicePixelRatio||1,2), raf=null, last=0;
-  function build(){
-    w=window.innerWidth; h=window.innerHeight;
-    c.width=w*dpr; c.height=h*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
-    var n=Math.min(260,Math.round(w*h/5200)); stars=[];
-    for(var i=0;i<n;i++){var warm=Math.random()<.12;stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.1+.2,a:Math.random()*.6+.2,t:Math.random()*6.28,s:Math.random()*.012+.004,v:Math.random()*.05+.01,col:warm?'233,189,114':'207,239,255'});}
-  }
-  function draw(time){
-    ctx.clearRect(0,0,w,h);
-    var sy=window.scrollY*0.04;
-    for(var i=0;i<stars.length;i++){
-      var s=stars[i];
-      if(!reduce){s.t+=s.s;s.y-=s.v;if(s.y<-2)s.y=h+2;}
-      var y=((s.y-sy*s.r)%h+h)%h;
-      var a=reduce?s.a:s.a*(.6+.4*Math.sin(s.t));
-      ctx.beginPath();ctx.arc(s.x,y,s.r,0,6.283);ctx.fillStyle='rgba('+s.col+','+a.toFixed(3)+')';ctx.fill();
-    }
-  }
-  function loop(t){ if(t-last>32){draw(t);last=t;} raf=requestAnimationFrame(loop); }
-  build();
-  if(reduce){draw(0);window.addEventListener('scroll',function(){draw(0);},{passive:true});}
-  else{raf=requestAnimationFrame(loop);
-    document.addEventListener('visibilitychange',function(){if(document.hidden){cancelAnimationFrame(raf);}else{raf=requestAnimationFrame(loop);}});}
-  var rt; window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){var nw=window.innerWidth;if(Math.abs(nw-w)>40||Math.abs(window.innerHeight-h)>160){build();draw(0);}},200);});
-
-  /* desktop continuum line through glyph centres */
-  var sl=document.getElementById('streamLine'), st=document.getElementById('stream');
-  function line(){
-    if(window.innerWidth<1080)return;
-    var o=document.getElementById('streamWrap').getBoundingClientRect(), pts=[];
-    st.querySelectorAll('.glyph').forEach(function(g){var r=g.getBoundingClientRect();pts.push((r.left+r.width/2-o.left).toFixed(1)+','+(r.top+r.height/2-o.top).toFixed(1));});
-    sl.querySelector('polyline').setAttribute('points',pts.join(' '));
-  }
-  line(); window.addEventListener('resize',line); if(document.fonts&&document.fonts.ready)document.fonts.ready.then(line);
-
-  /* Hero title: keep it on one line and as large as the free zone allows, whatever font loads */
-  var ht=document.getElementById('hero-title');
-  function fitTitle(){
-    if(window.innerWidth>=1024){ht.style.fontSize='';ht.style.whiteSpace='';return;}
-    ht.style.whiteSpace='nowrap'; ht.style.fontSize='';
-    var box=ht.parentElement.clientWidth, size=parseFloat(getComputedStyle(ht).fontSize), guard=0;
-    while(ht.scrollWidth>box && size>15 && guard++<200){size-=0.5;ht.style.fontSize=size+'px';}
-  }
-  fitTitle(); window.addEventListener('resize',fitTitle);
-  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitTitle);
-
-  /* ---- fixed cosmic backdrop: scroll chooses a REGION, never a position ---- */
-  (function(){
-    var root=document.querySelector('.cosmos'); if(!root)return;
-    var layers=root.querySelectorAll('.cosmos-layer'), regions=root.querySelectorAll('.cosmos-region');
-    var on=0, curOff=-1, fading=false, pending=null, idle=null, geo=null;
-    var FADE=2900, SETTLE=150;
-    function measure(){
-      if(window.innerWidth>=1024){geo=null;return;}
-      var H=Math.max(window.innerHeight,document.documentElement.clientHeight),
-          imgH=window.innerWidth*1.04*8207/724,
-          art=document.querySelector('.art'),
-          heroEnd=art.getBoundingClientRect().bottom+window.scrollY,
-          docH=document.documentElement.scrollHeight;
-      geo={H:H,maxOff:Math.max(0,imgH-H*1.12-30),step:Math.round(H*0.42),from:heroEnd*0.45,span:Math.max(1,docH-H-heroEnd*0.45)};
-    }
-    function targetOffset(){
-      var p=Math.min(1,Math.max(0,(window.scrollY-geo.from)/geo.span));
-      var off=p*geo.maxOff;
-      return Math.min(geo.maxOff,Math.round(off/geo.step)*geo.step);   /* discrete regions */
-    }
-    function place(i,off){regions[i].style.transform='translate3d(0,'+(-off)+'px,0)';}
-    function settle(){
-      if(!geo)return;
-      var off=targetOffset();
-      if(off===curOff)return;
-      if(fading||reduce&&curOff>=0){pending=true;return;}
-      var next=1-on;
-      place(next,off);
-      /* one frame so the new region is painted before it starts to appear */
-      requestAnimationFrame(function(){requestAnimationFrame(function(){
-        layers[next].classList.add('is-on'); layers[on].classList.remove('is-on');
-        on=next; curOff=off; fading=true;
-        setTimeout(function(){fading=false; if(pending){pending=null;settle();}},FADE);
-      });});
-    }
-    /* scroll handler does nothing visual: it only waits for the page to come to rest */
-    window.addEventListener('scroll',function(){clearTimeout(idle);idle=setTimeout(settle,SETTLE);},{passive:true});
-    function init(){measure(); if(!geo)return; curOff=targetOffset(); place(on,curOff);}
-    window.addEventListener('resize',function(){measure();});
-    window.addEventListener('orientationchange',function(){setTimeout(function(){measure();settle();},300);});
-    init(); window.addEventListener('load',init);
-  })();
-  document.getElementById('year').textContent=new Date().getFullYear();
+(()=>{'use strict';
+const q=s=>document.querySelector(s), header=q('.header'),btn=q('#menuBtn'),nav=q('#nav'),motion=q('#motionToggle');
+const reduced=matchMedia('(prefers-reduced-motion: reduce)');let frozen=reduced.matches;
+function menu(open){nav.classList.toggle('open',open);btn.setAttribute('aria-expanded',open);btn.setAttribute('aria-label',open?'Close menu':'Open menu');document.body.style.overflow=open?'hidden':'';if(open)nav.querySelector('a').focus();}
+btn.onclick=()=>menu(btn.getAttribute('aria-expanded')!=='true');nav.onclick=e=>{if(e.target.closest('a'))menu(false)};
+document.addEventListener('keydown',e=>{if(!nav.classList.contains('open'))return;if(e.key==='Escape'){menu(false);btn.focus();}if(e.key==='Tab'){const items=[...nav.querySelectorAll('a'),motion,btn];let i=items.indexOf(document.activeElement);if(e.shiftKey&&i===0){e.preventDefault();btn.focus()}else if(!e.shiftKey&&i===items.length-1){e.preventDefault();items[0].focus()}}});
+/* ---- moving cosmos: CSS scroll-driven parallax where it really works, JS otherwise; freeze control ---- */
+const root=document.documentElement, wrap=q('.cosmos'), long=q('.cosmos-long'), stack=q('#bgstack');
+const pics=[...stack.querySelectorAll('.bgi')];
+const cssClaimed=!!(window.CSS&&CSS.supports&&CSS.supports('animation-timeline','scroll()'));
+const OVERLAP=.15, K=.25;
+let mode=cssClaimed?'css':'js', verified=!cssClaimed, travel=0, maxScroll=1, inFrom=0, inTo=1, wide=innerWidth>=1024, lastW=0, lastH=0, raf=0;
+const viewH=()=>Math.min(innerHeight,(screen&&screen.height)||innerHeight)||innerHeight;
+function layout(force){
+  const vw=root.clientWidth, H=viewH();
+  if(!force&&vw===lastW&&Math.abs(H-lastH)<150&&wide===(innerWidth>=1024)){measureScroll();return;}   // ignore iOS toolbar resizes
+  lastW=vw; lastH=H; wide=innerWidth>=1024;
+  const shown=pics.filter((p,i)=>!(wide&&i===0));
+  const Ws=wide?vw:Math.max(vw,Math.round(H*941/1672));                          // phone: BG_01 fills the first screen
+  stack.style.setProperty('--stack-w',Ws+'px'); stack.style.setProperty('--stack-x',Math.round((vw-Ws)/2)+'px');
+  let top=0, prev=0;
+  shown.forEach((p,i)=>{const h=Ws*(+p.dataset.h)/(+p.dataset.w);
+    if(i>0){const ov=Math.round(OVERLAP*Math.min(h,prev)); top+=prev-ov; p.style.setProperty('--ov',ov+'px');}
+    else p.style.setProperty('--ov','0px');
+    p.style.top=top+'px'; prev=h;});
+  stack.dataset.h=top+prev; stack.style.setProperty('--stack-h',(top+prev)+'px');
+  measureScroll();
+}
+function measureScroll(){
+  const H=innerHeight; maxScroll=Math.max(1,root.scrollHeight-H);
+  const stackH=+stack.dataset.h||0;
+  const k=Math.min(K,Math.max(0,(stackH-viewH()-24)/maxScroll));                  // never expose the lower edge
+  travel=k*maxScroll; stack.style.setProperty('--travel',travel.toFixed(1)+'px'); stack.dataset.k=k.toFixed(3);
+  inFrom=H*.35; inTo=H*1.2; long.style.setProperty('--in-from',inFrom+'px'); long.style.setProperty('--in-to',inTo+'px');
+  stack.classList.toggle('css-par',mode==='css'); long.classList.toggle('css-in',mode==='css');
+  apply(); debug();
+}
+/* JS path: direct transform on each frame, no easing, no catch-up */
+function apply(){raf=0; if(mode==='css')return;
+  const y=scrollY;
+  if(!frozen)stack.style.transform='translate3d(0,'+(-travel*Math.min(1,y/maxScroll)).toFixed(1)+'px,0)';
+  if(wide)long.style.setProperty('--long-o',Math.max(0,Math.min(1,(y-inFrom)/(inTo-inFrom))).toFixed(3));}
+function request(){if(!raf)raf=requestAnimationFrame(apply)}
+/* some browsers report scroll-driven animations as supported but never advance them: check once, fall back */
+function verify(){
+  if(verified||frozen||scrollY<80||travel<2)return;
+  verified=true;
+  const m=getComputedStyle(stack).transform, ty=m&&m!=='none'?Math.abs(parseFloat(m.split(',')[5]||m.split(',')[13]||0)):0;
+  if(ty<1){mode='js';stack.classList.remove('css-par');long.classList.remove('css-in');request();}
+  debug();
+}
+function setFrozen(v){frozen=v;root.classList.toggle('frozen',frozen);motionLabel();request();debug();}
+function motionLabel(){motion.textContent=frozen?'Sky frozen':'Freeze sky';motion.setAttribute('aria-pressed',frozen);motion.setAttribute('aria-label',frozen?'Enable background movement':'Freeze background');}
+motion.onclick=()=>setFrozen(!frozen);
+if(reduced.addEventListener)reduced.addEventListener('change',e=>setFrozen(e.matches));
+setFrozen(frozen);
+addEventListener('scroll',()=>{header.classList.toggle('scrolled',scrollY>20);if(mode==='js')request();else verify();debug()},{passive:true});
+addEventListener('resize',()=>{if(innerWidth>=1024&&nav.classList.contains('open'))menu(false);layout(false)});
+addEventListener('orientationchange',()=>setTimeout(()=>layout(true),250));
+if('ResizeObserver'in window)new ResizeObserver(()=>measureScroll()).observe(q('main'));
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>measureScroll());
+function debug(){}
+layout(true);
+/* first picture has priority; the rest load when the browser is idle, in order */
+function loadRest(){pics.slice(1).forEach((p,i)=>setTimeout(()=>{
+  p.querySelectorAll('source[data-srcset]').forEach(s=>{s.srcset=s.dataset.srcset;s.removeAttribute('data-srcset')});
+  const im=p.querySelector('img[data-src]'); if(im){im.src=im.dataset.src;im.removeAttribute('data-src')}},i*120));}
+const startLoad=()=>{'requestIdleCallback'in window?requestIdleCallback(loadRest,{timeout:1200}):setTimeout(loadRest,100)};
+if(document.readyState==='complete')startLoad(); else addEventListener('load',()=>{startLoad();layout(true)});
+const observer=new IntersectionObserver(entries=>{for(const e of entries)if(e.isIntersecting){nav.querySelectorAll('a').forEach(a=>{if(a.hash==='#'+e.target.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')})}},{rootMargin:'-15% 0px -55% 0px'});document.querySelectorAll('section[id]').forEach(s=>observer.observe(s));
+q('#year').textContent=new Date().getFullYear();
 })();
-</script>
-</body>
+
+</script></body>
 </html>
